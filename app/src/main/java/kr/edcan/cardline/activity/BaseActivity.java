@@ -11,8 +11,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     public abstract int returnLayoutState();
-    void setToolbar(){
+
+    void setToolbar() {
 
     }
 }
