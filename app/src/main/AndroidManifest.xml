@@ -16,6 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.AuthActivity" />
+        <activity android:name=".activity.TutorialActivity" />
+        <activity android:name=".activity.NotificationActivity" />
+        <activity android:name=".activity.AccountActivity" />
+        <activity android:name=".activity.SetFavoriteCategoryActivity" />
+        <activity android:name=".activity.HistoryActivity" />
+        <activity android:name=".activity.FavoriteCardlineActivity" />
+        <activity android:name=".activity.NewCardActivity" />
+        <activity android:name=".activity.CardEditorActivity" />
+        <activity android:name=".activity.EditorPageSettingsActivity" />
+        <activity android:name=".activity.EditorPageViewActivity" />
+        <activity android:name=".activity.EDYActivity" />
+        <activity android:name=".activity.CardlineViewActivity" />
+        <activity android:name=".activity.CardlineCommentViewActivity"></activity>
     </application>
 
 </manifest>
