@@ -17,12 +17,13 @@ import kr.edcan.cardline.R;
 public abstract class BaseActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    ViewDataBinding baseBinding;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setContentView(onCreateViewId());
+        baseBinding = DataBindingUtil.setContentView(this, onCreateViewId());
         if (onCreateViewToolbarId() != 0) {
             toolbar = (Toolbar) findViewById(onCreateViewToolbarId());
             setSupportActionBar(toolbar);
@@ -35,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.parseColor("#BDBDBD"));
             getWindow().setNavigationBarColor(Color.BLACK);
         }
+        setDefault();
     }
 
     @Override
