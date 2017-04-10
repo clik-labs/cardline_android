@@ -50,4 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @IdRes
     protected abstract int onCreateViewToolbarId();
 
+    public void disableToggle(){
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    }
 }

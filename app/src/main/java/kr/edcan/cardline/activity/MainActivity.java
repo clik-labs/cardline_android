@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity {
 
     protected void setDefault() {
         binding = DataBindingUtil.setContentView(this, onCreateViewId());
+        disableToggle();
     }
 
     @Override
