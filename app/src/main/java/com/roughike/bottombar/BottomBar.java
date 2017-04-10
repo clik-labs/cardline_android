@@ -337,9 +337,11 @@ public class BottomBar extends LinearLayout implements View.OnClickListener, Vie
                 type = BottomBarTab.Type.FIXED;
             }
 
-            if (isIconsOnlyMode()) {
-                bottomBarTab.setIsTitleless(true);
-            }
+            /* Set Bottombar Titleless */
+//            if (isIconsOnlyMode()) {
+//                bottomBarTab.setIsTitleless(true);
+//            }
+            bottomBarTab.setIsTitleless(true);
 
             bottomBarTab.setType(type);
             bottomBarTab.prepareLayout();

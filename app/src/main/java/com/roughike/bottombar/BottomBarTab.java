@@ -105,7 +105,7 @@ public class BottomBarTab extends LinearLayout {
 
         if (type != Type.TABLET && !isTitleless) {
             titleView = (TextView) findViewById(R.id.bb_bottom_bar_title);
-            titleView.setVisibility(VISIBLE);
+            titleView.setVisibility(GONE);
 
             if (type == Type.SHIFTING) {
                 findViewById(R.id.spacer).setVisibility(VISIBLE);
