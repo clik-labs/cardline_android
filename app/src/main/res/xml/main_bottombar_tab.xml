@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        id="@+id/main_newsfeed"
+        icon="@drawable/btn_nav_feed"
+        title="NewsFeed" />
+    <tab
+        id="@+id/main_studio"
+        icon="@drawable/btn_nav_studio"
+        title="Studio" />
+    <tab
+        id="@+id/main_myeditorpage"
+        icon="@drawable/btn_nav_editor"
+        title="My Editor Page" />
+    <tab
+        id="@+id/main_settings"
+        icon="@drawable/btn_nav_more"
+        title="Settings" />
+</tabs>

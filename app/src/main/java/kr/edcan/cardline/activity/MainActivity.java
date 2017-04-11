@@ -91,6 +91,7 @@ public class MainActivity extends BaseActivity {
                     case R.id.main_myeditorpage:
                         fragNavController.switchTab(INDEX_MYEDITORPAGE);
                         break;
+
                     case R.id.main_settings:
                         fragNavController.switchTab(INDEX_SETTINGS);
                         break;
