@@ -1,5 +1,6 @@
 package kr.edcan.cardline.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,22 +16,16 @@ import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
  * Created by Junseok Oh on 2017-04-09.
  */
 
-public class CardlineStudioFragment extends Fragment {
+public class CardlineStudioFragment {
+    private Context context;
+    private FragmentCardlinestudioBinding binding;
 
-    static CardlineStudioFragment instance;
-    FragmentCardlinestudioBinding binding;
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cardlinestudio, container, true);
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public CardlineStudioFragment(Context context, FragmentCardlinestudioBinding binding) {
+        this.context = context;
+        this.binding = binding;
+        setFragment();
     }
+    private void setFragment(){
 
-    public static CardlineStudioFragment newInstance() {
-        
-        Bundle args = new Bundle();
-        if(instance == null) instance = new CardlineStudioFragment();
-        instance.setArguments(args);
-        return instance;
     }
 }

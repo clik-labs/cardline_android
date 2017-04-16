@@ -1,5 +1,6 @@
 package kr.edcan.cardline.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,22 +17,17 @@ import kr.edcan.cardline.databinding.FragmentSettingsBinding;
  * Created by Junseok Oh on 2017-04-09.
  */
 
-public class SettingsFragment extends Fragment {
-    FragmentSettingsBinding binding;
-    static SettingsFragment instance;
+public class SettingsFragment {
+    private Context context;
+    private FragmentSettingsBinding binding;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, true);
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public SettingsFragment(Context context, FragmentSettingsBinding binding) {
+        this.context = context;
+        this.binding = binding;
+        setFragment();
     }
 
-    public static SettingsFragment newInstance() {
+    private void setFragment() {
 
-        Bundle args = new Bundle();
-        if(instance == null) instance = new SettingsFragment();
-        instance.setArguments(args);
-        return instance;
     }
 }

@@ -1,5 +1,6 @@
 package kr.edcan.cardline.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,27 +11,24 @@ import android.view.ViewGroup;
 
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
+import kr.edcan.cardline.databinding.FragmentMyeditorBinding;
 import kr.edcan.cardline.databinding.FragmentNewsfeedBinding;
 
 /**
  * Created by Junseok Oh on 2017-04-09.
  */
 
-public class NewsFeedFragment extends Fragment {
-    FragmentNewsfeedBinding binding;
-    static NewsFeedFragment instance;
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_newsfeed, container, true);
-        return super.onCreateView(inflater, container, savedInstanceState);
+public class NewsFeedFragment {
+    private Context context;
+    private FragmentNewsfeedBinding binding;
+
+    public NewsFeedFragment(Context context, FragmentNewsfeedBinding binding) {
+        this.context = context;
+        this.binding = binding;
+        setFragment();
     }
 
-    public static NewsFeedFragment newInstance() {
+    private void setFragment() {
 
-        Bundle args = new Bundle();
-        if(instance == null) instance = new NewsFeedFragment();
-        instance.setArguments(args);
-        return instance;
     }
 }
