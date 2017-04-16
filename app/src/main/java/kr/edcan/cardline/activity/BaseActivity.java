@@ -55,4 +55,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void disableToggle(){
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
+
+    public void enableToggle(){
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 }
