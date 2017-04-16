@@ -1,44 +1,37 @@
 package kr.edcan.cardline.activity;
 
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
-import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.ActivityMainBinding;
+import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
+import kr.edcan.cardline.databinding.FragmentMyeditorBinding;
+import kr.edcan.cardline.databinding.FragmentNewsfeedBinding;
+import kr.edcan.cardline.databinding.FragmentSettingsBinding;
 import kr.edcan.cardline.fragment.CardlineStudioFragment;
 import kr.edcan.cardline.fragment.MyEditorFragment;
 import kr.edcan.cardline.fragment.NewsFeedFragment;
 import kr.edcan.cardline.fragment.SettingsFragment;
+import kr.edcan.cardline.views.AliveFragmentView;
 
 public class MainActivity extends BaseActivity {
 
     /* Activity Base Objects */
-    Bundle savedInstanceState;
     ActivityMainBinding binding;
-    FragNavController fragNavController;
-    ArrayList<Fragment> fragmentList;
-
-    /* Variables */
-    private final int INDEX_NEWSFEED = FragNavController.TAB1;
-    private final int INDEX_STUDIO = FragNavController.TAB2;
-    private final int INDEX_MYEDITORPAGE = FragNavController.TAB3;
-    private final int INDEX_SETTINGS = FragNavController.TAB4;
+    AliveFragmentView aliveFragmentView;
+    ArrayList<ViewDataBinding> fragmentBinding;
 
     NewsFeedFragment newsFeedFragment;
     CardlineStudioFragment cardlineStudioFragment;
     MyEditorFragment myEditorFragment;
     SettingsFragment settingsFragment;
 
-    int previousTabIndex = 0;
     @Override
     protected int onCreateViewId() {
         return R.layout.activity_main;
@@ -52,29 +45,25 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.savedInstanceState = savedInstanceState;
     }
 
     protected void setDefault() {
         binding = (ActivityMainBinding) baseBinding;
         disableToggle();
-        initializeFragment();
+        initializeLayout();
         initializeBottomBar();
     }
 
-
-    void initializeFragment() {
-        fragmentList = new ArrayList<>();
-        fragmentList.add(NewsFeedFragment.newInstance());
-        fragmentList.add(CardlineStudioFragment.newInstance());
-        fragmentList.add(MyEditorFragment.newInstance());
-        fragmentList.add(SettingsFragment.newInstance());
-        fragNavController = FragNavController.newBuilder(
-                savedInstanceState,
-                getSupportFragmentManager(),
-                R.id.mainFragmentContainer)
-                .rootFragments(fragmentList)
-                .build();
+    private void initializeLayout() {
+        aliveFragmentView = binding.mainFragmentContainer;
+        fragmentBinding = aliveFragmentView.addPage(R.layout.fragment_newsfeed,
+                R.layout.fragment_cardlinestudio,
+                R.layout.fragment_myeditor,
+                R.layout.fragment_settings);
+        newsFeedFragment = new NewsFeedFragment(this, (FragmentNewsfeedBinding) fragmentBinding.get(0));
+        cardlineStudioFragment = new CardlineStudioFragment(this,(FragmentCardlinestudioBinding) fragmentBinding.get(1));
+        myEditorFragment = new MyEditorFragment(this, (FragmentMyeditorBinding) fragmentBinding.get(2));
+        settingsFragment = new SettingsFragment(this, (FragmentSettingsBinding) fragmentBinding.get(3));
     }
 
     void initializeBottomBar() {
@@ -83,27 +72,20 @@ public class MainActivity extends BaseActivity {
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
                     case R.id.main_newsfeed:
-                        fragNavController.switchTab(INDEX_NEWSFEED);
+                        aliveFragmentView.switchPage(0);
                         break;
                     case R.id.main_studio:
-                        fragNavController.switchTab(INDEX_STUDIO);
+                        aliveFragmentView.switchPage(1);
                         break;
                     case R.id.main_myeditorpage:
-                        fragNavController.switchTab(INDEX_MYEDITORPAGE);
+                        aliveFragmentView.switchPage(2);
                         break;
-
                     case R.id.main_settings:
-                        fragNavController.switchTab(INDEX_SETTINGS);
+                        aliveFragmentView.switchPage(3);
                         break;
                 }
             }
         });
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (fragNavController != null) fragNavController.onSaveInstanceState(outState);
     }
 
     @Override
