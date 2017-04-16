@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/settings_settings"
-        android:title="더보기"
-        android:icon="@drawable/btn_actionbar_editor_editorsettings"
-        app:showAsAction="always" />
+        android:id="@+id/settings_info"
+        android:title="정보" />
 </menu>
