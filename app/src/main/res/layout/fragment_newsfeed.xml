@@ -7,6 +7,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/editText"
             android:text="asdf"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
