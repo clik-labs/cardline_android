@@ -11,6 +11,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import kr.edcan.cardline.R;
 
@@ -18,6 +19,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     ViewDataBinding baseBinding;
+    Menu menu;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -52,11 +54,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     @IdRes
     protected abstract int onCreateViewToolbarId();
 
+
     public void disableToggle(){
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     public void enableToggle(){
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void setToolbarTitle(String titleStr) {
+        this.getSupportActionBar().setTitle(titleStr);
     }
 }

@@ -3,6 +3,7 @@ package kr.edcan.cardline.activity;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.view.Menu;
 
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -61,7 +62,7 @@ public class MainActivity extends BaseActivity {
                 R.layout.fragment_myeditor,
                 R.layout.fragment_settings);
         newsFeedFragment = new NewsFeedFragment(this, (FragmentNewsfeedBinding) fragmentBinding.get(0));
-        cardlineStudioFragment = new CardlineStudioFragment(this,(FragmentCardlinestudioBinding) fragmentBinding.get(1));
+        cardlineStudioFragment = new CardlineStudioFragment(this, (FragmentCardlinestudioBinding) fragmentBinding.get(1));
         myEditorFragment = new MyEditorFragment(this, (FragmentMyeditorBinding) fragmentBinding.get(2));
         settingsFragment = new SettingsFragment(this, (FragmentSettingsBinding) fragmentBinding.get(3));
     }
@@ -70,19 +71,29 @@ public class MainActivity extends BaseActivity {
         binding.mainBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                switch (tabId) {
-                    case R.id.main_newsfeed:
-                        aliveFragmentView.switchPage(0);
-                        break;
-                    case R.id.main_studio:
-                        aliveFragmentView.switchPage(1);
-                        break;
-                    case R.id.main_myeditorpage:
-                        aliveFragmentView.switchPage(2);
-                        break;
-                    case R.id.main_settings:
-                        aliveFragmentView.switchPage(3);
-                        break;
+                if (menu != null) {
+                    menu.clear();
+                    switch (tabId) {
+                        case R.id.main_newsfeed:
+                            aliveFragmentView.switchPage(0);
+                            setToolbarTitle("뉴스피드");
+                            getMenuInflater().inflate(R.menu.menu_newsfeed, menu);
+                            break;
+                        case R.id.main_studio:
+                            aliveFragmentView.switchPage(1);
+                            setToolbarTitle("스튜디오");
+                            break;
+                        case R.id.main_myeditorpage:
+                            aliveFragmentView.switchPage(2);
+                            setToolbarTitle("내 에디터 페이지");
+                            getMenuInflater().inflate(R.menu.menu_myeditorpage, menu);
+                            break;
+                        case R.id.main_settings:
+                            aliveFragmentView.switchPage(3);
+                            setToolbarTitle("더보기");
+                            getMenuInflater().inflate(R.menu.menu_settings, menu);
+                            break;
+                    }
                 }
             }
         });
@@ -91,5 +102,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_newsfeed, menu);
+        this.menu = menu;
+        return super.onCreateOptionsMenu(menu);
     }
 }
