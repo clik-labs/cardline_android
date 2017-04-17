@@ -1,16 +1,24 @@
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:background="#FFF"
-
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:text="MyEditor"
-            android:layout_height="match_parent" />
 
-    </LinearLayout>
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <kr.edcan.cardline.views.CartaTagView
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingBottom="30dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="30dp"
+            android:text="오픈소스 라이센스"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:fullMode="true"
+            app:shadowEnabled="true" />
+    </RelativeLayout>
 </layout>

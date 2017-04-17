@@ -3,11 +3,15 @@ package kr.edcan.cardline.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
+import android.support.annotation.Dimension;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.TextView;
@@ -20,8 +24,10 @@ import kr.edcan.cardline.R;
 public class CartaTagView extends TextView {
     boolean fullMode = false;
     boolean textColorEnabled = false;
+    boolean shadowEnabled = false;
     int color = Color.BLACK;
     int textColor = Color.WHITE;
+    int shadowColor = Color.BLUE;
     int height, width;
     private Point center;
     private RectF bgRect, innerRect;
@@ -52,6 +58,8 @@ public class CartaTagView extends TextView {
         color = array.getColor(R.styleable.CartaTagView_themeColor, Color.BLACK);
         textColor = array.getColor(R.styleable.CartaTagView_textThemeColor, Color.BLACK);
         textColorEnabled = array.getBoolean(R.styleable.CartaTagView_textThemeColorEnabled, false);
+        shadowColor = array.getColor(R.styleable.CartaTagView_shadowColor, Color.BLUE);
+        shadowEnabled = array.getBoolean(R.styleable.CartaTagView_shadowEnabled, false);
         array.recycle();
     }
 
@@ -72,8 +80,9 @@ public class CartaTagView extends TextView {
         setView();
         center.set(width / 2, height / 2);
         int strokeWidth = getResources().getDimensionPixelSize(R.dimen.stroke_width);
-        int innerH = height - strokeWidth;
-        int innerW = width - strokeWidth;
+        int shadowWidth = (shadowEnabled) ? getResources().getDimensionPixelSize(R.dimen.shadow_width) : 0;
+        int innerH = height - strokeWidth - shadowWidth;
+        int innerW = width - strokeWidth - shadowWidth;
         int left = center.x - (innerW / 2);
         int top = center.y - (innerH / 2);
         int right = center.x + (innerW / 2);
@@ -82,20 +91,24 @@ public class CartaTagView extends TextView {
         bgPaint.setStyle(Paint.Style.STROKE);
         bgPaint.setAntiAlias(true);
         bgPaint.setStrokeWidth(strokeWidth);
+        if (shadowEnabled)
+            bgPaint.setShadowLayer(shadowWidth / (float) 2, 0.0f, 10.0f, Color.parseColor("#CC000BFF"));
         innerPaint.setAntiAlias(true);
-        innerPaint.setColor(color);
+        innerPaint.setColor((fullMode) ? color : Color.WHITE);
         innerPaint.setStyle(Paint.Style.FILL);
-        bgRect.set(0.0f + strokeWidth, 0.0f + strokeWidth, width - strokeWidth, height - strokeWidth);
+        setLayerType(LAYER_TYPE_SOFTWARE, innerPaint);
+        setLayerType(LAYER_TYPE_SOFTWARE, bgPaint);
+        bgRect.set(0.0f + strokeWidth + shadowWidth, 0.0f + strokeWidth + shadowWidth, width - strokeWidth - shadowWidth, height - strokeWidth - shadowWidth);
         innerRect.set(left, top, right, bottom);
-
-        if (fullMode) canvas.drawRoundRect(innerRect, innerH / 2, innerH / 2, innerPaint);
-        else canvas.drawRoundRect(bgRect, height / 2, height / 2, bgPaint);
+        canvas.drawRoundRect(bgRect, height / 2, height / 2, bgPaint);
+        canvas.drawRoundRect(bgRect, innerH / 2, innerH / 2, innerPaint);
         super.onDraw(canvas);
     }
 
     public void setShapeStyle(boolean fullMode, int color) {
         this.color = color;
         this.fullMode = fullMode;
+        setView();
         requestLayout();
     }
 
@@ -115,6 +128,18 @@ public class CartaTagView extends TextView {
     public void setTextColorForceFully(int color) {
         this.textColorEnabled = true;
         this.textColor = color;
+        setView();
+        requestLayout();
+    }
+
+    public void setShadowEnabled(boolean shadowEnabled) {
+        this.shadowEnabled = shadowEnabled;
+        setView();
+        requestLayout();
+    }
+
+    public void setShadowColor(int shadowColor) {
+        this.shadowColor = shadowColor;
         setView();
         requestLayout();
     }

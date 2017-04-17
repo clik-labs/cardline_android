@@ -9,4 +9,7 @@
     <dimen name="bb_height">56dp</dimen>
     <dimen name="bb_default_elevation">8dp</dimen>
     <dimen name="bb_fake_shadow_height">4dp</dimen>
+    <dimen name="shadow_width">20dp</dimen>
+    <dimen name="carta_width_padding">25dp</dimen>
+    <dimen name="carta_height_padding">30dp</dimen>
 </resources>
