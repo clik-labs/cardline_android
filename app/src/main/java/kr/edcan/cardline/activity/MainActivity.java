@@ -4,6 +4,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -112,5 +113,24 @@ public class MainActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_newsfeed, menu);
         this.menu = menu;
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.newsfeed_alert:
+                // 뉴스피드 - 알림 내역
+                break;
+            case R.id.newsfeed_favlist:
+                // 뉴스피드 - 즐겨찾기 목록
+                break;
+            case R.id.myeditorpage_settings:
+                // 내 에디터 페이지 - 설정
+                break;
+            case R.id.settings_info:
+                // 더보기 - 정보
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
