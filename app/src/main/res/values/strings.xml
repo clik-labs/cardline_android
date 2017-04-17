@@ -8,4 +8,5 @@
     <string name="alert">알림</string>
     <string name="favorite_list">즐겨찾기 목록</string>
     <string name="settings">설정</string>
+    <string name="open_source_license">오픈소스 라이센스</string>
 </resources>

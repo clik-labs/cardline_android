@@ -29,7 +29,8 @@
         <activity android:name=".activity.EditorPageViewActivity" />
         <activity android:name=".activity.EDYActivity" />
         <activity android:name=".activity.CardlineViewActivity" />
-        <activity android:name=".activity.CardlineCommentViewActivity"></activity>
+        <activity android:name=".activity.CardlineCommentViewActivity" />
+        <activity android:name=".activity.InformationActivity"></activity>
     </application>
 
 </manifest>

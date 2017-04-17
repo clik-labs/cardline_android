@@ -1,5 +1,6 @@
 package kr.edcan.cardline.activity;
 
+import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -129,6 +130,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.settings_info:
                 // 더보기 - 정보
+                startActivity(new Intent(getApplicationContext(), InformationActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
