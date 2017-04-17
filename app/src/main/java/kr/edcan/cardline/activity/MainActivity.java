@@ -65,6 +65,9 @@ public class MainActivity extends BaseActivity {
         cardlineStudioFragment = new CardlineStudioFragment(this, (FragmentCardlinestudioBinding) fragmentBinding.get(1));
         myEditorFragment = new MyEditorFragment(this, (FragmentMyeditorBinding) fragmentBinding.get(2));
         settingsFragment = new SettingsFragment(this, (FragmentSettingsBinding) fragmentBinding.get(3));
+
+        setToolbarTitle(getResources().getString(R.string.newsfeed));
+        aliveFragmentView.switchPage(0);
     }
 
     void initializeBottomBar() {
@@ -76,21 +79,21 @@ public class MainActivity extends BaseActivity {
                     switch (tabId) {
                         case R.id.main_newsfeed:
                             aliveFragmentView.switchPage(0);
-                            setToolbarTitle("뉴스피드");
+                            setToolbarTitle(getResources().getString(R.string.newsfeed));
                             getMenuInflater().inflate(R.menu.menu_newsfeed, menu);
                             break;
                         case R.id.main_studio:
                             aliveFragmentView.switchPage(1);
-                            setToolbarTitle("스튜디오");
+                            setToolbarTitle(getResources().getString(R.string.studio));
                             break;
                         case R.id.main_myeditorpage:
                             aliveFragmentView.switchPage(2);
-                            setToolbarTitle("내 에디터 페이지");
+                            setToolbarTitle(getResources().getString(R.string.my_editor_page));
                             getMenuInflater().inflate(R.menu.menu_myeditorpage, menu);
                             break;
                         case R.id.main_settings:
                             aliveFragmentView.switchPage(3);
-                            setToolbarTitle("더보기");
+                            setToolbarTitle(getResources().getString(R.string.more_settings));
                             getMenuInflater().inflate(R.menu.menu_settings, menu);
                             break;
                     }
