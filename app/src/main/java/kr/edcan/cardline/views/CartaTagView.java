@@ -81,8 +81,8 @@ public class CartaTagView extends TextView {
         center.set(width / 2, height / 2);
         int strokeWidth = getResources().getDimensionPixelSize(R.dimen.stroke_width);
         int shadowWidth = (shadowEnabled) ? getResources().getDimensionPixelSize(R.dimen.shadow_width) : 0;
-        int innerH = height - strokeWidth - shadowWidth;
-        int innerW = width - strokeWidth - shadowWidth;
+        int innerH = height - strokeWidth;
+        int innerW = width - strokeWidth;
         int left = center.x - (innerW / 2);
         int top = center.y - (innerH / 2);
         int right = center.x + (innerW / 2);
@@ -91,14 +91,15 @@ public class CartaTagView extends TextView {
         bgPaint.setStyle(Paint.Style.STROKE);
         bgPaint.setAntiAlias(true);
         bgPaint.setStrokeWidth(strokeWidth);
-        if (shadowEnabled)
-            bgPaint.setShadowLayer(shadowWidth / (float) 2, 0.0f, 10.0f, Color.parseColor("#CC000BFF"));
+//        if (shadowEnabled)
+//            bgPaint.setShadowLayer(shadowWidth / (float) 2, 0.0f, 10.0f, Color.parseColor("#CC000BFF"));
         innerPaint.setAntiAlias(true);
         innerPaint.setColor((fullMode) ? color : Color.WHITE);
         innerPaint.setStyle(Paint.Style.FILL);
         setLayerType(LAYER_TYPE_SOFTWARE, innerPaint);
         setLayerType(LAYER_TYPE_SOFTWARE, bgPaint);
-        bgRect.set(0.0f + strokeWidth + shadowWidth, 0.0f + strokeWidth + shadowWidth, width - strokeWidth - shadowWidth, height - strokeWidth - shadowWidth);
+//        bgRect.set(0.0f + strokeWidth + shadowWidth, 0.0f + strokeWidth + shadowWidth, width - strokeWidth - shadowWidth, height - strokeWidth - shadowWidth);
+        bgRect.set(0.0f + strokeWidth, 0.0f + strokeWidth, width - strokeWidth, height - strokeWidth);
         innerRect.set(left, top, right, bottom);
         canvas.drawRoundRect(bgRect, height / 2, height / 2, bgPaint);
         canvas.drawRoundRect(bgRect, innerH / 2, innerH / 2, innerPaint);
