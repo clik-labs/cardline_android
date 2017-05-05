@@ -20,6 +20,9 @@ import kr.edcan.cardline.R;
  * Created by JunseokOh on 2016. 8. 6..
  */
 public class CartaTagView extends AppCompatTextView {
+
+    final public static int COLOR_OVERLAY = 0;
+    final public static int GRADIENT_OVERLAY = 1;
     boolean fullMode = false;
     boolean textColorEnabled = false;
     boolean gradientEnabled = false;
@@ -27,6 +30,7 @@ public class CartaTagView extends AppCompatTextView {
     int textColor = Color.WHITE;
     int height, width;
     private Point center;
+    private LinearGradient gradientOverlay;
     private RectF bgRect, innerRect;
     private Paint innerPaint, bgPaint;
 
@@ -55,9 +59,9 @@ public class CartaTagView extends AppCompatTextView {
         color = array.getColor(R.styleable.CartaTagView_themeColor, Color.BLACK);
         textColor = array.getColor(R.styleable.CartaTagView_textThemeColor, Color.BLACK);
         textColorEnabled = array.getBoolean(R.styleable.CartaTagView_textThemeColorEnabled, false);
+        gradientEnabled = array.getBoolean(R.styleable.CartaTagView_enableGradient, false);
         startColor = array.getColor(R.styleable.CartaTagView_gradientStartColor, Color.BLACK);
         endColor = array.getColor(R.styleable.CartaTagView_gradientEndColor, Color.WHITE);
-        gradientEnabled = array.getBoolean(R.styleable.CartaTagView_enableGradient, false);
         array.recycle();
     }
 
@@ -71,6 +75,14 @@ public class CartaTagView extends AppCompatTextView {
     public void setView() {
         if (!textColorEnabled) setTextColor((fullMode) ? Color.WHITE : color);
         else setTextColor(textColor);
+
+        if (gradientEnabled) {
+            gradientOverlay = new LinearGradient(0, 0, getWidth(), 0,
+                    startColor, endColor,
+                    Shader.TileMode.CLAMP);
+        }
+        setLayerType(LAYER_TYPE_SOFTWARE, innerPaint);
+        setLayerType(LAYER_TYPE_SOFTWARE, bgPaint);
     }
 
     @Override
@@ -94,12 +106,10 @@ public class CartaTagView extends AppCompatTextView {
         innerPaint.setAntiAlias(true);
         innerPaint.setColor((fullMode) ? color : Color.WHITE);
         innerPaint.setStyle(Paint.Style.FILL);
-        innerPaint.setShader(new LinearGradient(0, 0, getWidth(), 0,
-                Color.parseColor("#5b8bf4"), Color.parseColor("#3dc9bd"),
-                Shader.TileMode.CLAMP));
-        setLayerType(LAYER_TYPE_SOFTWARE, innerPaint);
-        setLayerType(LAYER_TYPE_SOFTWARE, bgPaint);
-//        bgRect.set(0.0f + strokeWidth + shadowWidth, 0.0f + strokeWidth + shadowWidth, width - strokeWidth - shadowWidth, height - strokeWidth - shadowWidth);
+        if (gradientEnabled) {
+            if (fullMode) innerPaint.setShader(gradientOverlay);
+            else bgPaint.setShader(gradientOverlay);
+        }
         bgRect.set(0.0f + strokeWidth, 0.0f + strokeWidth, width - strokeWidth, height - strokeWidth);
         innerRect.set(left, top, right, bottom);
         if (!fullMode) canvas.drawRoundRect(bgRect, height / 2, height / 2, bgPaint);
@@ -107,22 +117,40 @@ public class CartaTagView extends AppCompatTextView {
         super.onDraw(canvas);
     }
 
-    public void setShapeStyle(boolean fullMode, int color) {
+    public void setShapeColor(int color) {
         this.color = color;
-        this.fullMode = fullMode;
         setView();
         requestLayout();
     }
 
+    public void setShapeColor(String colorStr) {
+        this.color = Color.parseColor(colorStr);
+        setView();
+        requestLayout();
+    }
+
+    public void setShapeGradientColor(int startColor, int endColor) {
+        this.startColor = startColor;
+        this.endColor = endColor;
+        setView();
+        requestLayout();
+    }
+
+    public void setShapeGradientColor(String startColorStr, String endColorStr) {
+        this.startColor = Color.parseColor(startColorStr);
+        this.endColor = Color.parseColor(endColorStr);
+        setView();
+        requestLayout();
+    }
+
+    public void setOverlayStyle(int overlayStyle) {
+        this.gradientEnabled = (overlayStyle == GRADIENT_OVERLAY);
+        setView();
+        requestLayout();
+    }
 
     public void setFullMode(boolean fullMode) {
         this.fullMode = fullMode;
-        setView();
-        requestLayout();
-    }
-
-    public void setShapeStyle(boolean fullMode, String colorStr) {
-        this.color = Color.parseColor(colorStr);
         setView();
         requestLayout();
     }
@@ -134,19 +162,31 @@ public class CartaTagView extends AppCompatTextView {
         requestLayout();
     }
 
-    public void setShadowEnabled(boolean shadowEnabled) {
-        this.shadowEnabled = shadowEnabled;
-        setView();
-        requestLayout();
-    }
-
-    public void setShadowColor(int shadowColor) {
-        this.shadowColor = shadowColor;
-        setView();
-        requestLayout();
-    }
-
     public boolean getFullMode() {
         return this.fullMode;
+    }
+
+    public boolean isTextColorEnabled() {
+        return textColorEnabled;
+    }
+
+    public boolean isGradientEnabled() {
+        return gradientEnabled;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public int getStartColor() {
+        return startColor;
+    }
+
+    public int getEndColor() {
+        return endColor;
+    }
+
+    public int getTextColor() {
+        return textColor;
     }
 }
