@@ -12,7 +12,10 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
 
 import kr.edcan.cardline.R;
 
@@ -26,13 +29,13 @@ public class CartaTagView extends AppCompatTextView {
     boolean fullMode = false;
     boolean textColorEnabled = false;
     boolean gradientEnabled = false;
-    int color = Color.BLACK, startColor = Color.BLACK, endColor = Color.WHITE;
+    int color = Color.BLACK, startColor = Color.BLACK, endColor = Color.WHITE, touchOverlayColor = Color.TRANSPARENT;
     int textColor = Color.WHITE;
     int height, width;
     private Point center;
     private LinearGradient gradientOverlay;
     private RectF bgRect, innerRect;
-    private Paint innerPaint, bgPaint;
+    private Paint innerPaint, bgPaint, touchOverlayPaint;
 
     public CartaTagView(Context context) {
         super(context);
@@ -44,6 +47,7 @@ public class CartaTagView extends AppCompatTextView {
         center = new Point();
         bgPaint = new Paint();
         innerPaint = new Paint();
+        touchOverlayPaint = new Paint();
         bgRect = new RectF();
         innerRect = new RectF();
         setGravity(Gravity.CENTER);
@@ -83,6 +87,7 @@ public class CartaTagView extends AppCompatTextView {
         }
         setLayerType(LAYER_TYPE_SOFTWARE, innerPaint);
         setLayerType(LAYER_TYPE_SOFTWARE, bgPaint);
+
     }
 
     @Override
@@ -106,16 +111,40 @@ public class CartaTagView extends AppCompatTextView {
         innerPaint.setAntiAlias(true);
         innerPaint.setColor((fullMode) ? color : Color.WHITE);
         innerPaint.setStyle(Paint.Style.FILL);
+
+        // Touch Overlay Paint
+        touchOverlayPaint.setColor(touchOverlayColor);
+        touchOverlayPaint.setStyle(Paint.Style.FILL);
+        touchOverlayPaint.setAntiAlias(true);
+
         if (gradientEnabled) {
             if (fullMode) innerPaint.setShader(gradientOverlay);
             else bgPaint.setShader(gradientOverlay);
         }
+
         bgRect.set(0.0f + strokeWidth, 0.0f + strokeWidth, width - strokeWidth, height - strokeWidth);
         innerRect.set(left, top, right, bottom);
         if (!fullMode) canvas.drawRoundRect(bgRect, height / 2, height / 2, bgPaint);
         else canvas.drawRoundRect(bgRect, innerH / 2, innerH / 2, innerPaint);
+        canvas.drawRoundRect(bgRect, innerH / 2, innerH / 2, touchOverlayPaint);
         super.onDraw(canvas);
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                touchOverlayColor = Color.TRANSPARENT;
+                requestLayout();
+                return true;
+            case MotionEvent.ACTION_DOWN:
+                touchOverlayColor = Color.parseColor("#32FFFFFF");
+                requestLayout();
+                return true;
+        }
+        return false;
+    }
+
 
     public void setShapeColor(int color) {
         this.color = color;

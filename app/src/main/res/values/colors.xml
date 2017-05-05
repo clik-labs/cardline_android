@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="mainGradientStartColor">#5b8bf4</color>
+    <color name="mainGradientEndColor">#3dc9bd</color>
+
     <!-- Bottombar Library Resources -->
     <color name="bb_inActiveBottomBarItemColor">#747474</color>
     <color name="bb_darkBackgroundColor">#212121</color>
