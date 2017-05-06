@@ -12,8 +12,10 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
 
 import kr.edcan.cardline.R;
 
@@ -24,7 +26,6 @@ public class CartaTagView extends AppCompatTextView {
 
     final public static int COLOR_OVERLAY = 0;
     final public static int GRADIENT_OVERLAY = 1;
-    boolean shadowEnabled = false;
     boolean fullMode = false;
     boolean textColorEnabled = false;
     boolean gradientEnabled = false;
@@ -58,8 +59,6 @@ public class CartaTagView extends AppCompatTextView {
     }
 
     private void setTypedArray(TypedArray array) {
-
-        shadowEnabled = array.getBoolean(R.styleable.CartaTagView_shadowEnabled, false);
         fullMode = array.getBoolean(R.styleable.CartaTagView_fullMode, false);
         color = array.getColor(R.styleable.CartaTagView_themeColor, Color.BLACK);
         textColor = array.getColor(R.styleable.CartaTagView_textThemeColor, Color.BLACK);

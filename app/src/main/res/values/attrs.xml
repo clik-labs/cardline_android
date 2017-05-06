@@ -3,12 +3,11 @@
     <declare-styleable name="CartaTagView">
         <attr name="themeColor" format="reference|color" />
         <attr name="fullMode" format="reference|boolean" />
-        <attr name="shadowEnabled" format="reference|boolean" />
         <attr name="textThemeColor" format="reference|color" />
-        <attr name="textThemeColorEnabled" format="reference|boolean" />
-        <attr name="enableGradient" format="reference|boolean" />
-        <attr name="gradientStartColor" format="reference|color" />
-        <attr name="gradientEndColor" format="reference|color" />
+        <attr name="textThemeColorEnabled" format="reference|boolean"/>
+        <attr name="enableGradient" format="reference|boolean"/>
+        <attr name="gradientStartColor" format="reference|color"/>
+        <attr name="gradientEndColor" format="reference|color"/>
 
     </declare-styleable>
     <declare-styleable name="BottomBar">
