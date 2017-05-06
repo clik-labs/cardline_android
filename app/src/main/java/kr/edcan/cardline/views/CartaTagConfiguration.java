@@ -30,28 +30,28 @@ public class CartaTagConfiguration {
         return this;
     }
 
-    public CartaTagConfiguration setThemeColor(@ColorRes int themeColor) {
+    public CartaTagConfiguration setThemeColor(int themeColor) {
         this.themeColor = themeColor;
         return this;
     }
 
-    public CartaTagConfiguration setGradientStartColor(@ColorRes int startColor) {
+    public CartaTagConfiguration setGradientStartColor(int startColor) {
         this.gradientStartColor = startColor;
         return this;
     }
 
-    public CartaTagConfiguration setGradientEndColor(@ColorRes int endColor) {
+    public CartaTagConfiguration setGradientEndColor(int endColor) {
         this.gradientEndColor = endColor;
         return this;
     }
 
-    public CartaTagConfiguration setGradientColor(@ColorRes int startColor, @ColorRes int endColor) {
+    public CartaTagConfiguration setGradientColor(int startColor, int endColor) {
         this.gradientStartColor = startColor;
         this.gradientEndColor = endColor;
         return this;
     }
 
-    public CartaTagConfiguration setTextColor(@ColorRes int textColor) {
+    public CartaTagConfiguration setTextColor(int textColor) {
         this.textColor = textColor;
         return this;
     }
