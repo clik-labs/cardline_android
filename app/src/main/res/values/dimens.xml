@@ -14,6 +14,8 @@
     <dimen name="shadow_width">20dp</dimen>
     <dimen name="carta_width_padding">25dp</dimen>
     <dimen name="carta_height_padding">30dp</dimen>
-    <dimen name="button_small_padding">8dp</dimen>
-    <dimen name="small_margin">4dp</dimen>
+
+    <dimen name="button_left_padding">25dp</dimen>
+    <dimen name="button_top_padding">12dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
 </resources>

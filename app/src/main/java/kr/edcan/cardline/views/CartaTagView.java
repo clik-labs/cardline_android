@@ -50,10 +50,10 @@ public class CartaTagView extends AppCompatTextView {
         innerRect = new RectF();
         setGravity(Gravity.CENTER);
         setPadding(
-                getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin),
-                getResources().getDimensionPixelSize(R.dimen.button_small_padding),
-                getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin),
-                getResources().getDimensionPixelSize(R.dimen.button_small_padding)
+                getResources().getDimensionPixelSize(R.dimen.button_left_padding),
+                getResources().getDimensionPixelSize(R.dimen.button_top_padding),
+                getResources().getDimensionPixelSize(R.dimen.button_left_padding),
+                getResources().getDimensionPixelSize(R.dimen.button_top_padding)
         );
     }
 
