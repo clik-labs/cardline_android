@@ -9,4 +9,5 @@
     <string name="favorite_list">즐겨찾기 목록</string>
     <string name="settings">설정</string>
     <string name="open_source_license">오픈소스 라이센스</string>
+    <string name="today_suggestion">오늘의 추천</string>
 </resources>

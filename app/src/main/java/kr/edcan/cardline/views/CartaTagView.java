@@ -24,8 +24,6 @@ import kr.edcan.cardline.R;
  */
 public class CartaTagView extends AppCompatTextView {
 
-    final public static int COLOR_OVERLAY = 0;
-    final public static int GRADIENT_OVERLAY = 1;
     boolean fullMode = false;
     boolean textColorEnabled = false;
     boolean gradientEnabled = false;
@@ -172,8 +170,8 @@ public class CartaTagView extends AppCompatTextView {
         requestLayout();
     }
 
-    public void setOverlayStyle(int overlayStyle) {
-        this.gradientEnabled = (overlayStyle == GRADIENT_OVERLAY);
+    public void setGradientEnabled(boolean gradientEnabled) {
+        this.gradientEnabled = gradientEnabled;
         setView();
         requestLayout();
     }
@@ -217,5 +215,14 @@ public class CartaTagView extends AppCompatTextView {
 
     public int getTextColor() {
         return textColor;
+    }
+
+    public void setConfiguration(CartaTagConfiguration configuration){
+        setFullMode(configuration.isFullMode());
+        setGradientEnabled(configuration.isGradient());
+        setShapeColor(configuration.getThemeColor());
+        if(configuration.isTextColorEnabled()) setTextColorForceFully(configuration.getTextColor());
+        setPadding(configuration.getPaddingLeft(), configuration.getPaddingTop(), configuration.getPaddingRight(), configuration.getPaddingBottom());
+        setShapeGradientColor(configuration.getGradientStartColor(), configuration.getGradientEndColor());
     }
 }
