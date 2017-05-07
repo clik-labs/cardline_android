@@ -9,5 +9,15 @@
     <string name="favorite_list">즐겨찾기 목록</string>
     <string name="settings">설정</string>
     <string name="open_source_license">오픈소스 라이센스</string>
+
     <string name="today_suggestion">오늘의 추천</string>
+    <string name="politics">정치</string>
+    <string name="entertainment">연예</string>
+    <string name="science_technology">과학 기술</string>
+    <string name="it_technology">IT / 산업</string>
+    <string name="daily_life_review">생활 / 리뷰</string>
+    <string name="movie_music">영화 / 음악</string>
+    <string name="dog_cat">멍 / 냥</string>
+    <string name="comic_animation">만화 / 애니</string>
+    <string name="cooking">요리</string>
 </resources>

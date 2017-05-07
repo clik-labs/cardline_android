@@ -2,15 +2,13 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:background="#FFF"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText"
-            android:text="asdf"
-            android:layout_gravity="center_vertical"
+        <include layout="@layout/main_newsfeed_header"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/newsFeedRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </layout>

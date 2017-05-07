@@ -18,7 +18,6 @@
             android:text="오픈소스 라이센스"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:fullMode="true"
-            app:shadowEnabled="true" />
+            app:fullMode="true" />
     </RelativeLayout>
 </layout>
