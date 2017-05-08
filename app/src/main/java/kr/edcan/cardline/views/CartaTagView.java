@@ -55,8 +55,21 @@ public class CartaTagView extends AppCompatTextView {
                 getResources().getDimensionPixelSize(R.dimen.button_left_padding),
                 getResources().getDimensionPixelSize(R.dimen.button_top_padding)
         );
-    }
 
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                touchOverlayColor = Color.TRANSPARENT;
+                break;
+            case MotionEvent.ACTION_DOWN:
+                touchOverlayColor = Color.parseColor("#32FFFFFF");
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
     private void getAttrs(AttributeSet attrs) {
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.CartaTagView);
         setTypedArray(array);
@@ -134,20 +147,6 @@ public class CartaTagView extends AppCompatTextView {
         super.onDraw(canvas);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                touchOverlayColor = Color.TRANSPARENT;
-                requestLayout();
-                return true;
-            case MotionEvent.ACTION_DOWN:
-                touchOverlayColor = Color.parseColor("#32FFFFFF");
-                requestLayout();
-                return true;
-        }
-        return false;
-    }
 
 
     public void setShapeColor(int color) {
@@ -228,7 +227,6 @@ public class CartaTagView extends AppCompatTextView {
         setGradientEnabled(configuration.isGradient());
         setShapeColor(configuration.getThemeColor());
         if(configuration.isTextColorEnabled()) setTextColorForceFully(configuration.getTextColor());
-        setPadding(configuration.getPaddingLeft(), configuration.getPaddingTop(), configuration.getPaddingRight(), configuration.getPaddingBottom());
         setShapeGradientColor(configuration.getGradientStartColor(), configuration.getGradientEndColor());
     }
 }

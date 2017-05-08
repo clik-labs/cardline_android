@@ -7,9 +7,11 @@
     <color name="mainGradientStartColor">#5b8bf4</color>
     <color name="mainGradientEndColor">#3dc9bd</color>
 
+    <color name="black_when_not_selected">#000000</color>
+    <color name="black_when_selected">#333333</color>
+
     <!-- Bottombar Library Resources -->
     <color name="bb_inActiveBottomBarItemColor">#747474</color>
     <color name="bb_darkBackgroundColor">#212121</color>
     <color name="bb_tabletRightBorderDark">#505050</color>
-    <color name="black_when_selected">#3E3E3E</color>
 </resources>

@@ -10,7 +10,6 @@ import android.support.annotation.ColorRes;
 public class CartaTagConfiguration {
     private boolean textColorEnabled = false, isFullMode = false, isGradient = false;
     private int themeColor = Color.BLACK, gradientStartColor = Color.BLACK, gradientEndColor = Color.WHITE, textColor = Color.BLACK;
-    private int paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0;
 
     public CartaTagConfiguration() {
     }
@@ -56,13 +55,6 @@ public class CartaTagConfiguration {
         return this;
     }
 
-    public CartaTagConfiguration setPadding(int left, int top, int right, int bottom) {
-        this.paddingLeft = left;
-        this.paddingTop = top;
-        this.paddingRight = right;
-        this.paddingBottom = bottom;
-        return this;
-    }
 
 
     public boolean isTextColorEnabled() {
@@ -93,19 +85,4 @@ public class CartaTagConfiguration {
         return textColor;
     }
 
-    public int getPaddingLeft() {
-        return paddingLeft;
-    }
-
-    public int getPaddingRight() {
-        return paddingRight;
-    }
-
-    public int getPaddingTop() {
-        return paddingTop;
-    }
-
-    public int getPaddingBottom() {
-        return paddingBottom;
-    }
 }
