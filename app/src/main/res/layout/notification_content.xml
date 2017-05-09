@@ -1,0 +1,65 @@
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <kr.edcan.cardline.views.RoundImageView
+                android:id="@+id/notification_profileImage"
+                android:layout_width="@dimen/notification_profileimage_width"
+                android:layout_height="@dimen/notification_profileimage_width"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/image04" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/notification_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Luminon Canoness 님이 내 카드에 댓글을 달았습니다."
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/notification_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이거 너무 Lorem Ipsum한데요?"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <kr.edcan.cardline.views.RoundImageView
+                android:id="@+id/notification_isNew"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:src="@color/alert_red" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="#DDDDDD" />
+    </RelativeLayout>
+</layout>
