@@ -20,6 +20,9 @@ android {
     dataBinding {
         enabled true
     }
+    repositories {
+        mavenCentral()
+    }
 }
 
 dependencies {
@@ -38,4 +41,5 @@ dependencies {
     compile 'com.github.nitrico.lastadapter:lastadapter:2.0.0'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'gun0912.ted:tedpermission:1.0.0'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
