@@ -20,4 +20,5 @@
     <dimen name="small_margin">8dp</dimen>
     <dimen name="extra_small_margin">4dp</dimen>
     <dimen name="notification_profileimage_width">45dp</dimen>
+    <dimen name="my_editor_header_top_margin">30dp</dimen>
 </resources>

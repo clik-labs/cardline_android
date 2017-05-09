@@ -21,6 +21,7 @@ import kr.edcan.cardline.fragment.CardlineStudioFragment;
 import kr.edcan.cardline.fragment.MyEditorFragment;
 import kr.edcan.cardline.fragment.NewsFeedFragment;
 import kr.edcan.cardline.fragment.SettingsFragment;
+import kr.edcan.cardline.models.Notification;
 import kr.edcan.cardline.views.AliveFragmentView;
 
 public class MainActivity extends BaseActivity {
@@ -121,9 +122,11 @@ public class MainActivity extends BaseActivity {
         switch (item.getItemId()){
             case R.id.newsfeed_alert:
                 // 뉴스피드 - 알림 내역
+                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
                 break;
             case R.id.newsfeed_favlist:
                 // 뉴스피드 - 즐겨찾기 목록
+                startActivity(new Intent(getApplicationContext(), FavoriteCardlineActivity.class));
                 break;
             case R.id.myeditorpage_settings:
                 // 내 에디터 페이지 - 설정
