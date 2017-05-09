@@ -5,6 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="false"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
         android:scrollbarSize="0dp"
         android:scrollbars="none">
 
@@ -15,6 +17,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:id="@+id/newsfeed_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,6 +92,7 @@
                 android:layout_marginLeft="@dimen/small_margin"
                 android:text="@string/dog_cat"
                 android:textStyle="bold" />
+
 
             <kr.edcan.cardline.views.CartaTagView
                 android:id="@+id/newsfeed_comic_animation"

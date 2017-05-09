@@ -9,6 +9,7 @@
 
     <color name="black_when_not_selected">#000000</color>
     <color name="black_when_selected">#333333</color>
+    <color name="like_tab_color">#4C4C4C</color>
 
     <!-- Bottombar Library Resources -->
     <color name="bb_inActiveBottomBarItemColor">#747474</color>

@@ -16,10 +16,6 @@ public class CartaSquareView extends RoundedImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        int size = Math.min(width, height);
-        super.onMeasure(MeasureSpec.makeMeasureSpec(size, MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(size, MeasureSpec.EXACTLY));
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
 }

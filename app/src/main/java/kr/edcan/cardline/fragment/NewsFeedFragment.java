@@ -1,38 +1,25 @@
 package kr.edcan.cardline.fragment;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
-import com.github.nitrico.lastadapter.BaseType;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
-import com.github.nitrico.lastadapter.Type;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import kr.edcan.cardline.R;
-import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
-import kr.edcan.cardline.databinding.FragmentMyeditorBinding;
 import kr.edcan.cardline.databinding.FragmentNewsfeedBinding;
+import kr.edcan.cardline.databinding.MainNewsfeedCommonContentBinding;
 import kr.edcan.cardline.databinding.MainNewsfeedHeaderBinding;
+import kr.edcan.cardline.models.CardNews;
 import kr.edcan.cardline.utils.CartaTagThemeHelper;
 import kr.edcan.cardline.views.CartaTagView;
 
@@ -47,18 +34,76 @@ public class NewsFeedFragment {
     private ArrayList<Object> arrayList = new ArrayList<>();
     private ArrayList<CartaTagView> menuList = new ArrayList<>();
 
+
+    private GridLayoutManager layoutManager;
+    private LastAdapter lastAdapter;
     private int currentTabPosition = 0;
 
     public NewsFeedFragment(Context context, FragmentNewsfeedBinding binding) {
         this.context = context;
         this.binding = binding;
+
+        // dummy datas, will be changed to cardline news data
         arrayList.add("asdf");
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
+        arrayList.add(new CardNews("title", "content", "url"));
         setFragment();
     }
 
     private void setFragment() {
-        binding.newsFeedRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        LastAdapter.with(arrayList, BR._all)
+        layoutManager = new GridLayoutManager(context, 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (position < 2) ? 2 : 1;
+            }
+        });
+        binding.newsFeedRecyclerView.setLayoutManager(layoutManager);
+        lastAdapter = LastAdapter.with(arrayList, BR._all)
                 .map(String.class, new ItemType<MainNewsfeedHeaderBinding>(R.layout.main_newsfeed_header) {
                     @Override
                     public void onBind(@NotNull MainNewsfeedHeaderBinding binding, @NotNull View view, int position) {
@@ -77,22 +122,36 @@ public class NewsFeedFragment {
                     }
 
                 })
+                .map(CardNews.class, new ItemType<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content) {
+                    @Override
+                    public void onBind(@NotNull MainNewsfeedCommonContentBinding binding, @NotNull View view, int position) {
+                        super.onBind(binding, view, position);
+                        if (position == 1) {
+                            // Today's Cardline Selection
+                            binding.cardStartCount.setVisibility(View.GONE);
+                        }
+                        CardNews data = (CardNews) arrayList.get(position);
+                        binding.cardTitle.setText(data.getTitle());
+                        binding.cardContent.setText(data.getContent());
+                    }
+                })
                 .handler(new LayoutHandler() {
                     @Override
                     public int getItemLayout(@NotNull Object o, int i) {
                         if (o instanceof String) return R.layout.main_newsfeed_header;
-                        return -1;
+                        return R.layout.main_newsfeed_common_content;
                     }
                 })
                 .into(binding.newsFeedRecyclerView);
     }
 
     private void selectTab(int position) {
-        if(menuList.size() != 0) {
+        if (menuList.size() != 0) {
             for (int i = 0; i < menuList.size(); i++) {
                 menuList.get(i).setConfiguration((position == i) ? CartaTagThemeHelper.selectedMainTab : CartaTagThemeHelper.nonSelectedMainTab);
             }
             currentTabPosition = position;
+            Log.e("asdf", position + "");
 
             // Update RecyclerView
         }
