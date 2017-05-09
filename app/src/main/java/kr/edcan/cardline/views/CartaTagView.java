@@ -65,7 +65,7 @@ public class CartaTagView extends AppCompatTextView {
                 touchOverlayColor = Color.TRANSPARENT;
                 break;
             case MotionEvent.ACTION_DOWN:
-                touchOverlayColor = Color.parseColor("#32FFFFFF");
+                touchOverlayColor = Color.parseColor("#32BDBDBD");
                 break;
         }
         return super.onTouchEvent(event);
