@@ -6,8 +6,8 @@
             type="kr.edcan.cardline.models.CardNews" />
 
         <variable
-            name="activity"
-            type="kr.edcan.cardline.fragment.NewsFeedFragment" />
+            name="eventHandler"
+            type="kr.edcan.cardline.handler.EventHandler" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_horizontal"
-        android:onClick="@{activity::onCardNewsClick}"
+        android:onClick="@{() -> eventHandler.onCardNewsClick(item)}"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 

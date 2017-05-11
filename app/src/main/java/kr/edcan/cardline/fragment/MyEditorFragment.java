@@ -26,6 +26,7 @@ import kr.edcan.cardline.databinding.MainNewsfeedCommonContentBinding;
 import kr.edcan.cardline.databinding.MyeditorHeaderBinding;
 import kr.edcan.cardline.databinding.MyeditorPopularListBinding;
 import kr.edcan.cardline.databinding.MyeditorPopularListContentBinding;
+import kr.edcan.cardline.handler.EventHandler;
 import kr.edcan.cardline.models.CardNews;
 import kr.edcan.cardline.models.User;
 
@@ -39,16 +40,20 @@ public class MyEditorFragment {
     private RecyclerView myEditorRecyclerView;
     private GridLayoutManager layoutManager;
     private LinearLayoutManager horizontalPopularLayoutManager;
+    private EventHandler eventHandler;
     private ArrayList<Object> dataList = new ArrayList<>();
     private ArrayList<CardNews> popularList = new ArrayList<>();
 
     public MyEditorFragment(Context context, FragmentMyeditorBinding binding) {
         this.context = context;
         this.binding = binding;
+        initialize();
+        loadData();
         setFragment();
     }
 
-    private void setFragment() {
+    private void initialize() {
+        eventHandler = new EventHandler(context);
         myEditorRecyclerView = binding.myEditorRecyclerView;
         layoutManager = new GridLayoutManager(context, 2);
         horizontalPopularLayoutManager = new LinearLayoutManager(context);
@@ -59,7 +64,9 @@ public class MyEditorFragment {
                 return (position < 3) ? 2 : 1;
             }
         });
-        myEditorRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void loadData() {
         dataList.add(new User());
         dataList.add(new ArrayList<CardNews>());
         dataList.add(new CardNews("asdf", "Asdf", "asdf"));
@@ -75,7 +82,11 @@ public class MyEditorFragment {
         popularList.add(new CardNews("asdf", "asdf", "asdf"));
         popularList.add(new CardNews("asdf", "asdf", "asdf"));
         popularList.add(new CardNews("asdf", "asdf", "asdf"));
-        LastAdapter.with(dataList, BR._all)
+    }
+
+    private void setFragment() {
+        myEditorRecyclerView.setLayoutManager(layoutManager);
+        LastAdapter.with(dataList, BR.item)
                 .map(User.class, new ItemType<MyeditorHeaderBinding>(R.layout.myeditor_header) {
                     @Override
                     public void onBind(@NotNull ViewHolder<MyeditorHeaderBinding> viewHolder) {
@@ -89,8 +100,7 @@ public class MyEditorFragment {
                         MyeditorPopularListBinding binding = viewHolder.getBinding();
                         binding.popularRecyclerView.setLayoutManager(horizontalPopularLayoutManager);
                         LastAdapter.with(popularList, BR._all)
-                                .map(CardNews.class, new ItemType<MyeditorPopularListContentBinding>(R.layout.myeditor_popular_list_content)
-                                {
+                                .map(CardNews.class, new ItemType<MyeditorPopularListContentBinding>(R.layout.myeditor_popular_list_content) {
 
                                     @Override
                                     public void onBind(@NotNull ViewHolder<MyeditorPopularListContentBinding> viewHolder) {
@@ -104,6 +114,7 @@ public class MyEditorFragment {
                     @Override
                     public void onBind(@NotNull ViewHolder<MainNewsfeedCommonContentBinding> viewHolder) {
                         super.onBind(viewHolder);
+                        viewHolder.getBinding().setEventHandler(eventHandler);
                     }
                 })
                 .handler(new LayoutHandler() {

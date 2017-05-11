@@ -22,6 +22,7 @@ import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.FragmentNewsfeedBinding;
 import kr.edcan.cardline.databinding.MainNewsfeedCommonContentBinding;
 import kr.edcan.cardline.databinding.MainNewsfeedHeaderBinding;
+import kr.edcan.cardline.handler.EventHandler;
 import kr.edcan.cardline.models.CardNews;
 import kr.edcan.cardline.utils.CartaTagThemeHelper;
 import kr.edcan.cardline.views.CartaTagView;
@@ -40,14 +41,30 @@ public class NewsFeedFragment {
 
     private GridLayoutManager layoutManager;
     private LastAdapter lastAdapter;
+    private EventHandler eventHandler;
     private int currentTabPosition = 0;
 
     public NewsFeedFragment(Context context, FragmentNewsfeedBinding binding) {
         this.context = context;
         this.binding = binding;
 
+        initialize();
         loadData();
         setFragment();
+    }
+
+    private void initialize() {
+        eventHandler = new EventHandler(context);
+        layoutManager = new GridLayoutManager(context, 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (position < 2) ? 2 : 1;
+            }
+        });
+        binding.newsFeedRecyclerView.setLayoutManager(layoutManager);
+
+
     }
 
     private void loadData() {
@@ -78,15 +95,6 @@ public class NewsFeedFragment {
     }
 
     private void setFragment() {
-        layoutManager = new GridLayoutManager(context, 2);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return (position < 2) ? 2 : 1;
-            }
-        });
-        binding.newsFeedRecyclerView.setLayoutManager(layoutManager);
-
         lastAdapter = LastAdapter.with(arrayList, BR.item)
                 .map(String.class, new ItemType<MainNewsfeedHeaderBinding>(R.layout.main_newsfeed_header) {
                     @Override
@@ -106,11 +114,11 @@ public class NewsFeedFragment {
                         super.onBind(viewHolder);
                     }
                 })
-                .map(CardNews.class, new ItemType<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content){
+                .map(CardNews.class, new ItemType<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content) {
                     @Override
                     public void onBind(@NotNull ViewHolder<MainNewsfeedCommonContentBinding> viewHolder) {
                         super.onBind(viewHolder);
-                        viewHolder.getBinding().setActivity(NewsFeedFragment.this);
+                        viewHolder.getBinding().setEventHandler(eventHandler);
                     }
                 })
                 .handler(new LayoutHandler() {
@@ -135,16 +143,6 @@ public class NewsFeedFragment {
         }
     }
 
-    /**
-     * Click Events
-     * */
 
-    /*
-    * CardNews Content Click Event
-    * */
-    public void onCardNewsClick(View view){
-        Toast.makeText(context, "asdf", Toast.LENGTH_SHORT).show();
-        Log.e("Asdf", "asdf");
-    }
 }
 
