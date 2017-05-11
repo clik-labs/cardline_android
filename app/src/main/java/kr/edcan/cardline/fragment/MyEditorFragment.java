@@ -8,9 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.github.nitrico.lastadapter.BR;
+import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
 import com.github.nitrico.lastadapter.Type;
+import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,60 +76,36 @@ public class MyEditorFragment {
         popularList.add(new CardNews("asdf", "asdf", "asdf"));
         popularList.add(new CardNews("asdf", "asdf", "asdf"));
         LastAdapter.with(dataList, BR._all)
-                .map(User.class, new Type<MyeditorHeaderBinding>(R.layout.myeditor_header)
-                        .onBind(new Function1<Type.Params<? extends MyeditorHeaderBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends MyeditorHeaderBinding> params) {
-                                return null;
-                            }
-                        })
-                        .onClick(new Function1<Type.Params<? extends MyeditorHeaderBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends MyeditorHeaderBinding> params) {
-                                return null;
-                            }
-                        }))
-                .map(ArrayList.class, new Type<MyeditorPopularListBinding>(R.layout.myeditor_popular_list)
-                        .onClick(new Function1<Type.Params<? extends MyeditorPopularListBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends MyeditorPopularListBinding> params) {
-                                return null;
-                            }
-                        })
-                        .onBind(new Function1<Type.Params<? extends MyeditorPopularListBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends MyeditorPopularListBinding> params) {
+                .map(User.class, new ItemType<MyeditorHeaderBinding>(R.layout.myeditor_header) {
+                    @Override
+                    public void onBind(@NotNull ViewHolder<MyeditorHeaderBinding> viewHolder) {
+                        super.onBind(viewHolder);
+                    }
+                })
+                .map(ArrayList.class, new ItemType<MyeditorPopularListBinding>(R.layout.myeditor_popular_list) {
+                    @Override
+                    public void onBind(@NotNull ViewHolder<MyeditorPopularListBinding> viewHolder) {
+                        super.onBind(viewHolder);
+                        MyeditorPopularListBinding binding = viewHolder.getBinding();
+                        binding.popularRecyclerView.setLayoutManager(horizontalPopularLayoutManager);
+                        LastAdapter.with(popularList, BR._all)
+                                .map(CardNews.class, new ItemType<MyeditorPopularListContentBinding>(R.layout.myeditor_popular_list_content)
+                                {
 
-                                params.getBinding().popularRecyclerView.setLayoutManager(horizontalPopularLayoutManager);
-                                LastAdapter.with(popularList, BR._all)
-                                        .map(CardNews.class, new Type<MyeditorPopularListContentBinding>(R.layout.myeditor_popular_list_content)
-                                                .onBind(new Function1<Type.Params<? extends MyeditorPopularListContentBinding>, Unit>() {
-                                                    @Override
-                                                    public Unit invoke(Type.Params<? extends MyeditorPopularListContentBinding> params) {
-                                                        return null;
-                                                    }
-                                                }).onClick(new Function1<Type.Params<? extends MyeditorPopularListContentBinding>, Unit>() {
-                                                    @Override
-                                                    public Unit invoke(Type.Params<? extends MyeditorPopularListContentBinding> params) {
-                                                        return null;
-                                                    }
-                                                })).into(params.getBinding().popularRecyclerView);
-                                return null;
-                            }
-                        }))
-                .map(CardNews.class, new Type<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content)
-                        .onBind(new Function1<Type.Params<? extends MainNewsfeedCommonContentBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends MainNewsfeedCommonContentBinding> params) {
-                                return null;
-                            }
-                        })
-                        .onClick(new Function1<Type.Params<? extends MainNewsfeedCommonContentBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends MainNewsfeedCommonContentBinding> params) {
-                                return null;
-                            }
-                        }))
+                                    @Override
+                                    public void onBind(@NotNull ViewHolder<MyeditorPopularListContentBinding> viewHolder) {
+                                        super.onBind(viewHolder);
+                                    }
+                                })
+                                .into(binding.popularRecyclerView);
+                    }
+                })
+                .map(CardNews.class, new ItemType<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content) {
+                    @Override
+                    public void onBind(@NotNull ViewHolder<MainNewsfeedCommonContentBinding> viewHolder) {
+                        super.onBind(viewHolder);
+                    }
+                })
                 .handler(new LayoutHandler() {
                     @Override
                     public int getItemLayout(@NotNull Object o, int i) {

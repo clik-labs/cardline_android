@@ -7,9 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.github.nitrico.lastadapter.BR;
+import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
 import com.github.nitrico.lastadapter.Type;
+import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,26 +44,16 @@ public class NotificationActivity extends BaseActivity {
         notifications.add(new Notification("aasdf", "aasdf", "aasdf"));
         notifications.add(new Notification("aasdf", "aasdf", "aasdf"));
         LastAdapter.with(notifications, BR._all)
-                .map(Notification.class, new Type<NotificationContentBinding>(R.layout.notification_content)
-                        .onClick(new Function1<Type.Params<? extends NotificationContentBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends NotificationContentBinding> params) {
-                                /*
-                                * Set Title, Content, Image, Alert
-                                * */
-                                return null;
-                            }
-                        })
-                        .onBind(new Function1<Type.Params<? extends NotificationContentBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends NotificationContentBinding> params) {
-                                NotificationContentBinding binding = params.getBinding();
-                                /*
-                                * Set Title, Content, Image, Alert
-                                * */
-                                return null;
-                            }
-                        }))
+                .map(Notification.class, new ItemType<NotificationContentBinding>(R.layout.notification_content) {
+                    @Override
+                    public void onBind(@NotNull ViewHolder<NotificationContentBinding> viewHolder) {
+                        super.onBind(viewHolder);
+                        /*
+                        * Set Title, Content, Image, Alert
+                        * */
+
+                    }
+                })
                 .handler(new LayoutHandler() {
                     @Override
                     public int getItemLayout(@NotNull Object o, int i) {

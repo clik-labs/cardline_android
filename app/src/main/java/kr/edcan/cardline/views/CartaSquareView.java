@@ -2,6 +2,7 @@ package kr.edcan.cardline.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 /**
@@ -12,6 +13,7 @@ public class CartaSquareView extends ImageView {
     public CartaSquareView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

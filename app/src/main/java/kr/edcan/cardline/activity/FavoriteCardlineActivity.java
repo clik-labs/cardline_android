@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.GridLayout;
 
 import com.github.nitrico.lastadapter.BR;
+import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
 import com.github.nitrico.lastadapter.Type;
+import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -59,19 +61,12 @@ public class FavoriteCardlineActivity extends BaseActivity {
         favoriteList.add(new CardNews("asdf", "asdf", "asdf"));
 
         LastAdapter.with(favoriteList, BR._all)
-                .map(CardNews.class, new Type<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content)
-                        .onBind(new Function1<Type.Params<? extends MainNewsfeedCommonContentBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends MainNewsfeedCommonContentBinding> params) {
-                                return null;
-                            }
-                        })
-                        .onClick(new Function1<Type.Params<? extends MainNewsfeedCommonContentBinding>, Unit>() {
-                            @Override
-                            public Unit invoke(Type.Params<? extends MainNewsfeedCommonContentBinding> params) {
-                                return null;
-                            }
-                        }))
+                .map(CardNews.class, new ItemType<ViewDataBinding>(R.layout.main_newsfeed_common_content){
+                    @Override
+                    public void onBind(@NotNull ViewHolder<ViewDataBinding> viewHolder) {
+                        super.onBind(viewHolder);
+                    }
+                })
                 .handler(new LayoutHandler() {
                     @Override
                     public int getItemLayout(@NotNull Object o, int i) {

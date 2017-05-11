@@ -2,13 +2,16 @@ package kr.edcan.cardline.fragment;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
+import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +36,7 @@ public class NewsFeedFragment {
     private MainNewsfeedHeaderBinding headerBinding;
     private ArrayList<Object> arrayList = new ArrayList<>();
     private ArrayList<CartaTagView> menuList = new ArrayList<>();
-
+    private NewsFeedFragment fragment;
 
     private GridLayoutManager layoutManager;
     private LastAdapter lastAdapter;
@@ -43,6 +46,11 @@ public class NewsFeedFragment {
         this.context = context;
         this.binding = binding;
 
+        loadData();
+        setFragment();
+    }
+
+    private void loadData() {
         // dummy datas, will be changed to cardline news data
         arrayList.add("asdf");
         arrayList.add(new CardNews("title", "content", "url"));
@@ -67,31 +75,6 @@ public class NewsFeedFragment {
         arrayList.add(new CardNews("title", "content", "url"));
         arrayList.add(new CardNews("title", "content", "url"));
         arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        arrayList.add(new CardNews("title", "content", "url"));
-        setFragment();
     }
 
     private void setFragment() {
@@ -103,10 +86,12 @@ public class NewsFeedFragment {
             }
         });
         binding.newsFeedRecyclerView.setLayoutManager(layoutManager);
-        lastAdapter = LastAdapter.with(arrayList, BR._all)
+
+        lastAdapter = LastAdapter.with(arrayList, BR.item)
                 .map(String.class, new ItemType<MainNewsfeedHeaderBinding>(R.layout.main_newsfeed_header) {
                     @Override
-                    public void onBind(@NotNull MainNewsfeedHeaderBinding binding, @NotNull View view, int position) {
+                    public void onBind(@NotNull ViewHolder<MainNewsfeedHeaderBinding> viewHolder) {
+                        MainNewsfeedHeaderBinding binding = viewHolder.getBinding();
                         Collections.addAll(menuList, binding.newsfeedTodaySuggestion, binding.newsfeedPolitics, binding.newsfeedEntertainment, binding.newsfeedScienceTechnology, binding.newsfeedItTechnology, binding.newsfeedLifeReview, binding.newsfeedMovieMusic, binding.newsfeedAnimal, binding.newsfeedComicAnimation, binding.newsfeedCooking);
                         selectTab(0);
                         for (int i = 0; i < menuList.size(); i++) {
@@ -118,21 +103,14 @@ public class NewsFeedFragment {
                                 }
                             });
                         }
-                        super.onBind(binding, view, position);
+                        super.onBind(viewHolder);
                     }
-
                 })
-                .map(CardNews.class, new ItemType<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content) {
+                .map(CardNews.class, new ItemType<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content){
                     @Override
-                    public void onBind(@NotNull MainNewsfeedCommonContentBinding binding, @NotNull View view, int position) {
-                        super.onBind(binding, view, position);
-                        if (position == 1) {
-                            // Today's Cardline Selection
-                            binding.cardStartCount.setVisibility(View.GONE);
-                        }
-                        CardNews data = (CardNews) arrayList.get(position);
-                        binding.cardTitle.setText(data.getTitle());
-                        binding.cardContent.setText(data.getContent());
+                    public void onBind(@NotNull ViewHolder<MainNewsfeedCommonContentBinding> viewHolder) {
+                        super.onBind(viewHolder);
+                        viewHolder.getBinding().setActivity(NewsFeedFragment.this);
                     }
                 })
                 .handler(new LayoutHandler() {
@@ -155,6 +133,18 @@ public class NewsFeedFragment {
 
             // Update RecyclerView
         }
+    }
+
+    /**
+     * Click Events
+     * */
+
+    /*
+    * CardNews Content Click Event
+    * */
+    public void onCardNewsClick(View view){
+        Toast.makeText(context, "asdf", Toast.LENGTH_SHORT).show();
+        Log.e("Asdf", "asdf");
     }
 }
 

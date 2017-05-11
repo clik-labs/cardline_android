@@ -1,12 +1,22 @@
 <layout>
 
+    <data>
+        <variable
+            name="item"
+            type="kr.edcan.cardline.models.CardNews" />
+
+        <variable
+            name="activity"
+            type="kr.edcan.cardline.fragment.NewsFeedFragment" />
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:clickable="true"
         android:gravity="center_horizontal"
+        android:onClick="@{activity::onCardNewsClick}"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
@@ -22,6 +32,7 @@
             <kr.edcan.cardline.views.CartaSquareView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image01" />
         </android.support.v7.widget.CardView>
@@ -32,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:gravity="center"
-            android:text="오늘의 카드라인 셀렉션"
+            android:text="@{item.title}"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -42,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="갤럭시 S8 by 루미논 카노네스"
+            android:text="@{item.content}"
             android:textSize="12sp" />
 
         <TextView
