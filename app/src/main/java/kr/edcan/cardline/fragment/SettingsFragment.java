@@ -24,6 +24,7 @@ import kr.edcan.cardline.BR;
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
 import kr.edcan.cardline.databinding.FragmentSettingsBinding;
+import kr.edcan.cardline.databinding.SettingsAccountContentBinding;
 import kr.edcan.cardline.databinding.SettingsContentBinding;
 import kr.edcan.cardline.handler.EventHandler;
 import kr.edcan.cardline.models.ListContent;
@@ -58,7 +59,13 @@ public class SettingsFragment {
 
     private void setFragment() {
         LastAdapter.with(listData, BR.commonContent)
-                .map(User.class, new ItemType<>(R.layout.settings_account_content))
+                .map(User.class, new ItemType<SettingsAccountContentBinding>(R.layout.settings_account_content){
+                    @Override
+                    public void onBind(@NotNull ViewHolder<SettingsAccountContentBinding> viewHolder) {
+                        super.onBind(viewHolder);
+                        viewHolder.getBinding().setEventHandler(eventHandler);
+                    }
+                })
                 .map(ListContent.class, new ItemType<SettingsContentBinding>(R.layout.settings_content) {
                     @Override
                     public void onBind(@NotNull ViewHolder<SettingsContentBinding> viewHolder) {
