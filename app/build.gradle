@@ -42,4 +42,5 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'gun0912.ted:tedpermission:1.0.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.github.rey5137:material:1.2.4'
 }
