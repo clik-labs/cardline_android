@@ -58,4 +58,22 @@ public class EventHandler {
     public void onEDPassIdClick(){
         context.startActivity(new Intent(context, AccountActivity.class));
     }
+
+    /*
+    * Account Content Click Event
+    * */
+
+    public void onAccountListClick(int position){
+        switch (position){
+            case 0:
+                // Facebook Login Connect, Disconnect
+                break;
+            case 1:
+                // Synchorize
+                break;
+            case 2:
+                // Editor Pro
+                break;
+        }
+    }
 }
