@@ -1,10 +1,14 @@
 package kr.edcan.cardline.handler;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import kr.edcan.cardline.activity.AccountActivity;
+import kr.edcan.cardline.activity.EDYActivity;
+import kr.edcan.cardline.activity.HistoryActivity;
 import kr.edcan.cardline.models.CardNews;
 
 /**
@@ -27,5 +31,31 @@ public class EventHandler {
     public void onCardNewsClick(CardNews item){
         Toast.makeText(context, "asdf", Toast.LENGTH_SHORT).show();
         Log.e("Asdf", "asdf");
+    }
+
+    /*
+    * Setting Content Click Event
+    * */
+
+    public void onSettingsListClick(int position){
+        switch (position){
+            case 0:
+                context.startActivity(new Intent(context, EDYActivity.class));
+                break;
+            case 1:
+                // TODO 튜토리얼 완성 후 startActivity()
+                break;
+            case 2:
+                context.startActivity(new Intent(context, HistoryActivity.class));
+                break;
+        }
+    }
+
+    /*
+    * EDPass ID Content Click Event
+    * */
+
+    public void onEDPassIdClick(){
+        context.startActivity(new Intent(context, AccountActivity.class));
     }
 }
