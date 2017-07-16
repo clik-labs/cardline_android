@@ -29,12 +29,13 @@ import kr.edcan.cardline.fragment.NewsFeedFragment;
 import kr.edcan.cardline.fragment.SettingsFragment;
 import kr.edcan.cardline.models.Notification;
 import kr.edcan.cardline.views.AliveFragmentView;
+import kr.edcan.cardline.views.ControllableViewPager;
 
 public class MainActivity extends BaseActivity {
 
     /* Activity Base Objects */
     ActivityMainBinding binding;
-    ViewPager mainPager;
+    ControllableViewPager mainPager;
     ArrayList<ViewDataBinding> fragmentBinding;
     CardLinePagerAdapter pagerAdapter;
 
@@ -96,44 +97,6 @@ public class MainActivity extends BaseActivity {
                             break;
                     }
                 }
-            }
-        });
-        mainPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (menu != null) {
-                    menu.clear();
-                    switch (position) {
-                        case 0:
-                            setToolbarTitle(getResources().getString(R.string.newsfeed));
-                            getMenuInflater().inflate(R.menu.menu_newsfeed, menu);
-                            binding.mainBottomBar.selectTabAtPosition(0);
-                            break;
-                        case 1:
-                            setToolbarTitle(getResources().getString(R.string.studio));
-                            binding.mainBottomBar.selectTabAtPosition(1);
-                            break;
-                        case 2:
-                            setToolbarTitle(getResources().getString(R.string.my_editor_page));
-                            getMenuInflater().inflate(R.menu.menu_myeditorpage, menu);
-                            binding.mainBottomBar.selectTabAtPosition(2);
-                            break;
-                        case 3:
-                            setToolbarTitle(getResources().getString(R.string.more_settings));
-                            getMenuInflater().inflate(R.menu.menu_settings, menu);
-                            binding.mainBottomBar.selectTabAtPosition(3);
-                            break;
-                    }
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
