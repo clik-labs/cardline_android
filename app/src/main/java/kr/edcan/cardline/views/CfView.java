@@ -61,7 +61,6 @@ public class CfView extends FrameLayout {
     private ArrayList<View> drawList = new ArrayList<>();     // Image
     private ArrayList<Bitmap> drawSubList = new ArrayList<>();     // Image Bitmap
     private int page = 1;
-    private PageExt pageExt = new PageExt();
     public int count_page = 0;
     public static final int NONE = 0;
     public static final int MOVE = 1;
@@ -81,6 +80,10 @@ public class CfView extends FrameLayout {
 
     private View currentView = null;
     private View lastView = null;
+
+    private int realWidth = 0;
+
+    private int realHeight = 0;
 
     public CfView(@NonNull Context context) {
         super(context);
@@ -103,6 +106,9 @@ public class CfView extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+
+        realWidth = getMeasuredWidth();
+        realHeight = getMeasuredWidth();
     }
 
     @Override
@@ -283,13 +289,12 @@ public class CfView extends FrameLayout {
     }
 
     public void setEraseBackground(Bitmap b) {
-        ImageView iv = (ImageView) findViewById(R.id.tfv);
+        ImageView iv = findViewById(R.id.tfv);
         back_resource = null;
         iv.setImageBitmap(b);
     }
 
     public void addPage() {
-        // TODO 페이지 추가
         Page p = new Page(cardList, drawList, drawSubList, back_resource, count_page + 1);
         pag.addPagePM(p);
     }
@@ -344,8 +349,6 @@ public class CfView extends FrameLayout {
     }
 
     public void movePage(int x) {       // position
-        // TODO 페이지 이동 구현
-        // TODO v2 재구축 필요
         setFlag(false);
         ((EditorMainActivity) cv).changeForm();
         Log.e(TAG, "movePage: what is now page? " + page);
@@ -676,5 +679,12 @@ public class CfView extends FrameLayout {
         return true;
     }
 
+    public int getRealWidth() {
+        return realWidth;
+    }
+
+    public int getRealHeight() {
+        return realHeight;
+    }
 
 }
