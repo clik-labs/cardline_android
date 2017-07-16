@@ -48,7 +48,6 @@ public class CardlineStudioFragment extends Fragment implements View.OnClickList
     private GridLayoutManager layoutManager;
 
 
-
     public static CardlineStudioFragment create(int pageNumber) {
         CardlineStudioFragment fragment = new CardlineStudioFragment();
         Bundle args = new Bundle();
@@ -64,7 +63,7 @@ public class CardlineStudioFragment extends Fragment implements View.OnClickList
         title = getArguments().getString("exchange");
     }
 
-    public void onCardNewsClick(CardNews cardNews){
+    public void onCardNewsClick(CardNews cardNews) {
         // Todo Launch Edit
     }
 
@@ -74,6 +73,12 @@ public class CardlineStudioFragment extends Fragment implements View.OnClickList
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cardlinestudio, container, false);
         savedCards = binding.studioRecyclerView;
         layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (position == 0) ? 2 : 1;
+            }
+        });
         savedCards.setLayoutManager(layoutManager);
 
         binding.makeCardOne.setOnClickListener(this);
@@ -85,16 +90,17 @@ public class CardlineStudioFragment extends Fragment implements View.OnClickList
                 new CardNews("title", "content", "url"),
                 new CardNews("title", "content", "url"));
 
-//        savedCardAdapter = LastAdapter.with(arrayList, BR.item)
-//                .map(String.class, new ItemType<StudioSavedHeaderBinding>(R.layout.studio_saved_header))
-//                .map(CardNews.class, new ItemType<StudioSavedContentBinding>(R.layout.studio_saved_content) {
-//                    @Override
-//                    public void onBind(@NotNull ViewHolder<StudioSavedContentBinding> viewHolder) {
-//                        super.onBind(viewHolder);
-//                        viewHolder.getBinding().setActivity(CardlineStudioFragment.this);
-//                    }
-//                })
-//                .into(savedCards);
+        savedCardAdapter = LastAdapter.with(arrayList, BR.item)
+                .map(String.class, new ItemType<StudioSavedHeaderBinding>(R.layout.studio_saved_header))
+                .map(CardNews.class, new ItemType<StudioSavedContentBinding>(R.layout.studio_saved_content) {
+                    @Override
+                    public void onBind(@NotNull ViewHolder<StudioSavedContentBinding> viewHolder) {
+                        super.onBind(viewHolder);
+                        viewHolder.getBinding().setActivity(CardlineStudioFragment.this);
+                    }
+                })
+                .into(savedCards);
+        savedCards.setFocusable(false);
         return binding.getRoot();
     }
 

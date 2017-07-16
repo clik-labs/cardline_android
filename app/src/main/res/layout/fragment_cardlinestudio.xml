@@ -1,70 +1,68 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="match_parent"
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
-        <ScrollView  android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:fillViewport="true"
-            android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="#F9F9F9"
+                android:scrollbars="none">
 
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:background="@drawable/activity_background"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#F9F9F9"
-                    android:scrollbars="none">
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/makeCardOne"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardCornerRadius="20dp"
+                        app:cardUseCompatPadding="true">
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/makeCardOne"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardCornerRadius="20dp"
-                            app:cardUseCompatPadding="true">
+                            android:src="@drawable/pic_studio_tempone" />
+                    </android.support.v7.widget.CardView>
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/pic_studio_tempone" />
-                        </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/makeCardTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardCornerRadius="20dp"
+                        app:cardUseCompatPadding="true">
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/makeCardTwo"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardCornerRadius="20dp"
-                            app:cardUseCompatPadding="true">
+                            android:src="@drawable/pic_studio_temptwo" />
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </HorizontalScrollView>
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/pic_studio_temptwo" />
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/studioRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/studioRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </layout>
