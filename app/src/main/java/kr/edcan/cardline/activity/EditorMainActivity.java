@@ -93,7 +93,7 @@ public class EditorMainActivity extends EditorBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.editor_activity_main);
         context = this;
         try {
             File dir = getApplicationContext().getExternalCacheDir();
