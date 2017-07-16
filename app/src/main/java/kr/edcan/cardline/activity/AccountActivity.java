@@ -1,7 +1,5 @@
 package kr.edcan.cardline.activity;
 
-import android.databinding.ViewDataBinding;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.github.nitrico.lastadapter.BR;
+import com.github.nitrico.lastadapter.Holder;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
-import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +20,6 @@ import kr.edcan.cardline.databinding.AccountContentBinding;
 import kr.edcan.cardline.databinding.ActivityAccountBinding;
 import kr.edcan.cardline.handler.EventHandler;
 import kr.edcan.cardline.models.AccountContent;
-import kr.edcan.cardline.models.ListContent;
 
 public class AccountActivity extends BaseActivity {
 
@@ -59,10 +56,10 @@ public class AccountActivity extends BaseActivity {
                 "Editor Pro 신청",
                 "기업, 공인을 위한 인증 마크, 전용 서비스를 제공받을 수 있습니다.",
                 getResources().getDrawable((isEditorPro) ? R.drawable.ic_account_editorpro_on : R.drawable.ic_account_editorpro_off)));
-        LastAdapter.with(dataList, BR.content)
+        new LastAdapter(dataList, BR.content)
                 .map(AccountContent.class, new ItemType<AccountContentBinding>(R.layout.account_content) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<AccountContentBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<AccountContentBinding> viewHolder) {
                         super.onBind(viewHolder);
                         viewHolder.getBinding().setEventHandler(eventHandler);
                     }

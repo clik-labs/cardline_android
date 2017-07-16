@@ -1,29 +1,22 @@
 package kr.edcan.cardline.activity;
 
 import android.databinding.ViewDataBinding;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.GridLayout;
 
 import com.github.nitrico.lastadapter.BR;
+import com.github.nitrico.lastadapter.Holder;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
-import com.github.nitrico.lastadapter.Type;
-import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.ActivityFavoriteCardlineBinding;
-import kr.edcan.cardline.databinding.MainNewsfeedCommonContentBinding;
 import kr.edcan.cardline.models.CardNews;
 
 public class FavoriteCardlineActivity extends BaseActivity {
@@ -60,10 +53,10 @@ public class FavoriteCardlineActivity extends BaseActivity {
         favoriteList.add(new CardNews("asdf", "asdf", "asdf"));
         favoriteList.add(new CardNews("asdf", "asdf", "asdf"));
 
-        LastAdapter.with(favoriteList, BR._all)
+        new LastAdapter(favoriteList, BR._all)
                 .map(CardNews.class, new ItemType<ViewDataBinding>(R.layout.main_newsfeed_common_content){
                     @Override
-                    public void onBind(@NotNull ViewHolder<ViewDataBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<ViewDataBinding> viewHolder) {
                         super.onBind(viewHolder);
                     }
                 })

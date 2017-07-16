@@ -1,22 +1,19 @@
 package kr.edcan.cardline.fragment;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.github.nitrico.lastadapter.Holder;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
-import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -118,10 +115,10 @@ public class NewsFeedFragment extends Fragment{
     }
 
     private void setFragment() {
-        lastAdapter = LastAdapter.with(arrayList, BR.item)
+        lastAdapter = new LastAdapter(arrayList, BR.item)
                 .map(String.class, new ItemType<MainNewsfeedHeaderBinding>(R.layout.main_newsfeed_header) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<MainNewsfeedHeaderBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<MainNewsfeedHeaderBinding> viewHolder) {
                         MainNewsfeedHeaderBinding binding = viewHolder.getBinding();
                         Collections.addAll(menuList, binding.newsfeedTodaySuggestion, binding.newsfeedPolitics, binding.newsfeedEntertainment, binding.newsfeedScienceTechnology, binding.newsfeedItTechnology, binding.newsfeedLifeReview, binding.newsfeedMovieMusic, binding.newsfeedAnimal, binding.newsfeedComicAnimation, binding.newsfeedCooking);
                         selectTab(0);
@@ -139,7 +136,7 @@ public class NewsFeedFragment extends Fragment{
                 })
                 .map(CardNews.class, new ItemType<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<MainNewsfeedCommonContentBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<MainNewsfeedCommonContentBinding> viewHolder) {
                         super.onBind(viewHolder);
                         viewHolder.getBinding().setEventHandler(eventHandler);
                     }
