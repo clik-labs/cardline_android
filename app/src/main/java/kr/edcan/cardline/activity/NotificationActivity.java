@@ -1,24 +1,19 @@
 package kr.edcan.cardline.activity;
 
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.github.nitrico.lastadapter.BR;
+import com.github.nitrico.lastadapter.Holder;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
-import com.github.nitrico.lastadapter.Type;
-import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.ActivityNotificationBinding;
 import kr.edcan.cardline.databinding.NotificationContentBinding;
@@ -43,10 +38,10 @@ public class NotificationActivity extends BaseActivity {
         notificationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         notifications.add(new Notification("aasdf", "aasdf", "aasdf"));
         notifications.add(new Notification("aasdf", "aasdf", "aasdf"));
-        LastAdapter.with(notifications, BR._all)
+        new LastAdapter(notifications, BR._all)
                 .map(Notification.class, new ItemType<NotificationContentBinding>(R.layout.notification_content) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<NotificationContentBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<NotificationContentBinding> viewHolder) {
                         super.onBind(viewHolder);
                         /*
                         * Set Title, Content, Image, Alert
