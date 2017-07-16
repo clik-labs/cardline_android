@@ -32,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
             toolbar.setTitleTextColor(Color.BLACK);
             toolbar.setContentInsetStartWithNavigation(0);
+            toolbar.setTitleTextAppearance(getApplicationContext(),R.style.ActionBar_NameText);
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
