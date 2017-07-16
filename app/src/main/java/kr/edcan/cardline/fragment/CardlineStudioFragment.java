@@ -1,25 +1,52 @@
 package kr.edcan.cardline.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.databinding.library.baseAdapters.BR;
+import com.github.nitrico.lastadapter.ItemType;
+import com.github.nitrico.lastadapter.LastAdapter;
+import com.github.nitrico.lastadapter.LayoutHandler;
+import com.github.nitrico.lastadapter.ViewHolder;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import kr.edcan.cardline.R;
+import kr.edcan.cardline.activity.NewCardActivity;
 import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
+import kr.edcan.cardline.databinding.MainNewsfeedCommonContentBinding;
+import kr.edcan.cardline.databinding.MainNewsfeedHeaderBinding;
+import kr.edcan.cardline.databinding.StudioSavedContentBinding;
+import kr.edcan.cardline.databinding.StudioSavedHeaderBinding;
+import kr.edcan.cardline.models.CardNews;
 
 /**
  * Created by Junseok Oh on 2017-04-09.
  */
 
-public class CardlineStudioFragment extends Fragment{
+public class CardlineStudioFragment extends Fragment implements View.OnClickListener {
     private int mPageNumber;
     private String title;
     private FragmentCardlinestudioBinding binding;
+
+    ArrayList<Object> arrayList = new ArrayList<>();
+    LastAdapter savedCardAdapter;
+    RecyclerView savedCards;
+    private GridLayoutManager layoutManager;
+
 
 
     public static CardlineStudioFragment create(int pageNumber) {
@@ -29,6 +56,7 @@ public class CardlineStudioFragment extends Fragment{
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +64,49 @@ public class CardlineStudioFragment extends Fragment{
         title = getArguments().getString("exchange");
     }
 
+    public void onCardNewsClick(CardNews cardNews){
+        // Todo Launch Edit
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cardlinestudio, container, false);
+        savedCards = binding.studioRecyclerView;
+        layoutManager = new GridLayoutManager(getContext(), 2);
+        savedCards.setLayoutManager(layoutManager);
+
+        binding.makeCardOne.setOnClickListener(this);
+        binding.makeCardTwo.setOnClickListener(this);
+        Collections.addAll(arrayList,
+                "저장된 저작물",
+                new CardNews("title", "content", "url"),
+                new CardNews("title", "content", "url"),
+                new CardNews("title", "content", "url"),
+                new CardNews("title", "content", "url"));
+
+//        savedCardAdapter = LastAdapter.with(arrayList, BR.item)
+//                .map(String.class, new ItemType<StudioSavedHeaderBinding>(R.layout.studio_saved_header))
+//                .map(CardNews.class, new ItemType<StudioSavedContentBinding>(R.layout.studio_saved_content) {
+//                    @Override
+//                    public void onBind(@NotNull ViewHolder<StudioSavedContentBinding> viewHolder) {
+//                        super.onBind(viewHolder);
+//                        viewHolder.getBinding().setActivity(CardlineStudioFragment.this);
+//                    }
+//                })
+//                .into(savedCards);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.makeCardOne:
+                startActivity(new Intent(getContext(), NewCardActivity.class).putExtra("cardType", 0));
+                break;
+            case R.id.makeCardTwo:
+                startActivity(new Intent(getContext(), NewCardActivity.class).putExtra("cardType", 1));
+                break;
+        }
     }
 }
