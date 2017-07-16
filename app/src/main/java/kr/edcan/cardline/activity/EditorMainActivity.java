@@ -298,6 +298,8 @@ public class EditorMainActivity extends EditorBaseActivity {
             }
         });
 
+        preset();
+
 
     }
 
@@ -393,6 +395,140 @@ public class EditorMainActivity extends EditorBaseActivity {
                     }
                 })
                 .into(binding.cv);
+    }
+
+    public void preset() {
+        Intent intent = getIntent();
+        int flag = intent.getIntExtra("cardType", 0);
+        if (flag == 0) {
+            final InText tv = new InText(getApplicationContext());      // 1번 텍스트
+            tv.setText("텍스트를 변경해주세요");
+            tv.setTextSize(binding.btnStudioTextSlidesize.getProgress());
+            Log.e(TAG, "onClick: " + binding.studioSpinner.getSelectedItemPosition());
+            if (binding.studioSpinner.getSelectedItemPosition() == 0) {
+                tv.setTypeface(FontBinder.get("NanumSquareB"), "NanumSquareB");
+            } else {
+                tv.setTypeface(FontBinder.get("NanumGothic"), "NanumGothic");
+            }
+            tv.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (NOW_EDITING == EDITING_TEXT) {
+                        if (!_dialog)
+                            showXDialog(tv);
+                    } else if (cfv.getLocked()) {
+                        return false;
+                    }
+
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            cfv.setFlag(true, tv);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            cfv.setFlag(false);
+                            break;
+                    }
+                    return true;
+                }
+            });
+            cfv.addCard(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            final InText tv2 = new InText(getApplicationContext());     // 2번 텍스트
+            tv2.setText("텍스트를 변경해주세요");
+            tv2.setTextSize(binding.btnStudioTextSlidesize.getProgress());
+            Log.e(TAG, "onClick: " + binding.studioSpinner.getSelectedItemPosition());
+            if (binding.studioSpinner.getSelectedItemPosition() == 0) {
+                tv2.setTypeface(FontBinder.get("NanumSquareB"), "NanumSquareB");
+            } else {
+                tv2.setTypeface(FontBinder.get("NanumGothic"), "NanumGothic");
+            }
+            tv2.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (NOW_EDITING == EDITING_TEXT) {
+                        if (!_dialog)
+                            showXDialog(tv2);
+                    } else if (cfv.getLocked()) {
+                        return false;
+                    }
+
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            cfv.setFlag(true, tv2);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            cfv.setFlag(false);
+                            break;
+                    }
+                    return true;
+                }
+            });
+            cfv.addCard(tv2, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        } else if (flag == 1) {
+            final InText tv = new InText(getApplicationContext());      // 1번 텍스트
+            tv.setText("텍스트를 변경해주세요");
+            tv.setTextSize(binding.btnStudioTextSlidesize.getProgress());
+            Log.e(TAG, "onClick: " + binding.studioSpinner.getSelectedItemPosition());
+            if (binding.studioSpinner.getSelectedItemPosition() == 0) {
+                tv.setTypeface(FontBinder.get("NanumSquareB"), "NanumSquareB");
+            } else {
+                tv.setTypeface(FontBinder.get("NanumGothic"), "NanumGothic");
+            }
+            tv.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (NOW_EDITING == EDITING_TEXT) {
+                        if (!_dialog)
+                            showXDialog(tv);
+                    } else if (cfv.getLocked()) {
+                        return false;
+                    }
+
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            cfv.setFlag(true, tv);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            cfv.setFlag(false);
+                            break;
+                    }
+                    return true;
+                }
+            });
+            cfv.addCard(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            final InText tv2 = new InText(getApplicationContext());     // 2번 텍스트
+            tv2.setText("텍스트를 변경해주세요");
+            tv2.setTextSize(binding.btnStudioTextSlidesize.getProgress());
+            Log.e(TAG, "onClick: " + binding.studioSpinner.getSelectedItemPosition());
+            if (binding.studioSpinner.getSelectedItemPosition() == 0) {
+                tv2.setTypeface(FontBinder.get("NanumSquareB"), "NanumSquareB");
+            } else {
+                tv2.setTypeface(FontBinder.get("NanumGothic"), "NanumGothic");
+            }
+            tv2.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (NOW_EDITING == EDITING_TEXT) {
+                        if (!_dialog)
+                            showXDialog(tv2);
+                    } else if (cfv.getLocked()) {
+                        return false;
+                    }
+
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            cfv.setFlag(true, tv2);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            cfv.setFlag(false);
+                            break;
+                    }
+                    return true;
+                }
+            });
+            cfv.addCard(tv2, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
     }
 
     @Override
