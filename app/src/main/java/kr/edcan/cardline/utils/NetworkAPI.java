@@ -2,7 +2,9 @@ package kr.edcan.cardline.utils;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by Junseok Oh on 2017-04-07.
@@ -10,6 +12,6 @@ import retrofit2.http.POST;
 
 public interface NetworkAPI {
 
-    @POST("/api/request/login")
-    Call<ResponseBody> exampleAPI();
+    @GET("/auth/facebook/token")
+    Call<ResponseBody> loginByFacebook(@Query("access_token") String token);
 }
