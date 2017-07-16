@@ -4,8 +4,14 @@ import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -28,13 +34,9 @@ public class MainActivity extends BaseActivity {
 
     /* Activity Base Objects */
     ActivityMainBinding binding;
-    AliveFragmentView aliveFragmentView;
+    ViewPager mainPager;
     ArrayList<ViewDataBinding> fragmentBinding;
-
-    NewsFeedFragment newsFeedFragment;
-    CardlineStudioFragment cardlineStudioFragment;
-    MyEditorFragment myEditorFragment;
-    SettingsFragment settingsFragment;
+    CardLinePagerAdapter pagerAdapter;
 
     @Override
     protected int onCreateViewId() {
@@ -59,21 +61,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initializeLayout() {
-        aliveFragmentView = binding.mainFragmentContainer;
-        fragmentBinding = aliveFragmentView.addPage(R.layout.fragment_newsfeed,
-                R.layout.fragment_cardlinestudio,
-                R.layout.fragment_myeditor,
-                R.layout.fragment_settings);
-        newsFeedFragment = new NewsFeedFragment(this, (FragmentNewsfeedBinding) fragmentBinding.get(0));
-        cardlineStudioFragment = new CardlineStudioFragment(this, (FragmentCardlinestudioBinding) fragmentBinding.get(1));
-        myEditorFragment = new MyEditorFragment(this, (FragmentMyeditorBinding) fragmentBinding.get(2));
-        settingsFragment = new SettingsFragment(this, (FragmentSettingsBinding) fragmentBinding.get(3));
-
         setToolbarTitle(getResources().getString(R.string.newsfeed));
-        aliveFragmentView.switchPage(0);
+        pagerAdapter = new CardLinePagerAdapter(getSupportFragmentManager());
+        mainPager = binding.mainFragmentContainer;
+        mainPager.setAdapter(pagerAdapter);
     }
 
     void initializeBottomBar() {
+
         binding.mainBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
@@ -81,26 +76,64 @@ public class MainActivity extends BaseActivity {
                     menu.clear();
                     switch (tabId) {
                         case R.id.main_newsfeed:
-                            aliveFragmentView.switchPage(0);
+                            mainPager.setCurrentItem(0);
                             setToolbarTitle(getResources().getString(R.string.newsfeed));
                             getMenuInflater().inflate(R.menu.menu_newsfeed, menu);
                             break;
                         case R.id.main_studio:
-                            aliveFragmentView.switchPage(1);
+                            mainPager.setCurrentItem(1);
                             setToolbarTitle(getResources().getString(R.string.studio));
                             break;
                         case R.id.main_myeditorpage:
-                            aliveFragmentView.switchPage(2);
+                            mainPager.setCurrentItem(2);
                             setToolbarTitle(getResources().getString(R.string.my_editor_page));
                             getMenuInflater().inflate(R.menu.menu_myeditorpage, menu);
                             break;
                         case R.id.main_settings:
-                            aliveFragmentView.switchPage(3);
+                            mainPager.setCurrentItem(3);
                             setToolbarTitle(getResources().getString(R.string.more_settings));
                             getMenuInflater().inflate(R.menu.menu_settings, menu);
                             break;
                     }
                 }
+            }
+        });
+        mainPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (menu != null) {
+                    menu.clear();
+                    switch (position) {
+                        case 0:
+                            setToolbarTitle(getResources().getString(R.string.newsfeed));
+                            getMenuInflater().inflate(R.menu.menu_newsfeed, menu);
+                            binding.mainBottomBar.selectTabAtPosition(0);
+                            break;
+                        case 1:
+                            setToolbarTitle(getResources().getString(R.string.studio));
+                            binding.mainBottomBar.selectTabAtPosition(1);
+                            break;
+                        case 2:
+                            setToolbarTitle(getResources().getString(R.string.my_editor_page));
+                            getMenuInflater().inflate(R.menu.menu_myeditorpage, menu);
+                            binding.mainBottomBar.selectTabAtPosition(2);
+                            break;
+                        case 3:
+                            setToolbarTitle(getResources().getString(R.string.more_settings));
+                            getMenuInflater().inflate(R.menu.menu_settings, menu);
+                            binding.mainBottomBar.selectTabAtPosition(3);
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
@@ -119,7 +152,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.newsfeed_alert:
                 // 뉴스피드 - 알림 내역
                 startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
@@ -137,5 +170,39 @@ public class MainActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class CardLinePagerAdapter extends FragmentStatePagerAdapter {
+
+        public CardLinePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return NewsFeedFragment.create(position);
+                case 1:
+                    return CardlineStudioFragment.create(position);
+                case 2:
+                    return MyEditorFragment.create(position);
+                case 3:
+                    return SettingsFragment.create(position);
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            return super.instantiateItem(container, position);
+        }
+
     }
 }

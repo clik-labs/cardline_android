@@ -16,16 +16,30 @@ import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
  * Created by Junseok Oh on 2017-04-09.
  */
 
-public class CardlineStudioFragment {
-    private Context context;
+public class CardlineStudioFragment extends Fragment{
+    private int mPageNumber;
+    private String title;
     private FragmentCardlinestudioBinding binding;
 
-    public CardlineStudioFragment(Context context, FragmentCardlinestudioBinding binding) {
-        this.context = context;
-        this.binding = binding;
-        setFragment();
-    }
-    private void setFragment(){
 
+    public static CardlineStudioFragment create(int pageNumber) {
+        CardlineStudioFragment fragment = new CardlineStudioFragment();
+        Bundle args = new Bundle();
+        args.putInt("page", pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPageNumber = getArguments().getInt("page");
+        title = getArguments().getString("exchange");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cardlinestudio, container, false);
+        return binding.getRoot();
     }
 }

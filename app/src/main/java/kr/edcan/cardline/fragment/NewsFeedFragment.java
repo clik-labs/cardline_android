@@ -1,10 +1,15 @@
 package kr.edcan.cardline.fragment;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -31,8 +36,7 @@ import kr.edcan.cardline.views.CartaTagView;
  * Created by Junseok Oh on 2017-04-09.
  */
 
-public class NewsFeedFragment {
-    private Context context;
+public class NewsFeedFragment extends Fragment{
     private FragmentNewsfeedBinding binding;
     private MainNewsfeedHeaderBinding headerBinding;
     private ArrayList<Object> arrayList = new ArrayList<>();
@@ -43,19 +47,38 @@ public class NewsFeedFragment {
     private LastAdapter lastAdapter;
     private EventHandler eventHandler;
     private int currentTabPosition = 0;
+    private int mPageNumber;
+    private String title;
 
-    public NewsFeedFragment(Context context, FragmentNewsfeedBinding binding) {
-        this.context = context;
-        this.binding = binding;
+    public static NewsFeedFragment create(int pageNumber) {
+        NewsFeedFragment fragment = new NewsFeedFragment();
+        Bundle args = new Bundle();
+        args.putInt("page", pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPageNumber = getArguments().getInt("page");
+        title = getArguments().getString("exchange");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_newsfeed, container, false);
         initialize();
         loadData();
         setFragment();
+        return binding.getRoot();
     }
 
+
     private void initialize() {
-        eventHandler = new EventHandler(context);
-        layoutManager = new GridLayoutManager(context, 2);
+        eventHandler = new EventHandler(getContext());
+        layoutManager = new GridLayoutManager(getContext(), 2);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

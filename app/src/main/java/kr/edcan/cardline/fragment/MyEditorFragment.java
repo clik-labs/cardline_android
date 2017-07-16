@@ -1,11 +1,16 @@
 package kr.edcan.cardline.fragment;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.nitrico.lastadapter.BR;
 import com.github.nitrico.lastadapter.ItemType;
@@ -21,6 +26,7 @@ import java.util.ArrayList;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import kr.edcan.cardline.R;
+import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
 import kr.edcan.cardline.databinding.FragmentMyeditorBinding;
 import kr.edcan.cardline.databinding.MainNewsfeedCommonContentBinding;
 import kr.edcan.cardline.databinding.MyeditorHeaderBinding;
@@ -34,8 +40,7 @@ import kr.edcan.cardline.models.User;
  * Created by Junseok Oh on 2017-04-09.
  */
 
-public class MyEditorFragment {
-    private Context context;
+public class MyEditorFragment extends Fragment {
     private FragmentMyeditorBinding binding;
     private RecyclerView myEditorRecyclerView;
     private GridLayoutManager layoutManager;
@@ -44,19 +49,41 @@ public class MyEditorFragment {
     private ArrayList<Object> dataList = new ArrayList<>();
     private ArrayList<CardNews> popularList = new ArrayList<>();
 
-    public MyEditorFragment(Context context, FragmentMyeditorBinding binding) {
-        this.context = context;
-        this.binding = binding;
+    private int mPageNumber;
+    private String title;
+
+
+    public static MyEditorFragment create(int pageNumber) {
+        MyEditorFragment fragment = new MyEditorFragment();
+        Bundle args = new Bundle();
+        args.putInt("page", pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPageNumber = getArguments().getInt("page");
+        title = getArguments().getString("exchange");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_myeditor, container, false);
         initialize();
         loadData();
         setFragment();
+        return binding.getRoot();
     }
 
+
     private void initialize() {
-        eventHandler = new EventHandler(context);
+        eventHandler = new EventHandler(getContext());
         myEditorRecyclerView = binding.myEditorRecyclerView;
-        layoutManager = new GridLayoutManager(context, 2);
-        horizontalPopularLayoutManager = new LinearLayoutManager(context);
+        layoutManager = new GridLayoutManager(getContext(), 2);
+        horizontalPopularLayoutManager = new LinearLayoutManager(getContext());
         horizontalPopularLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

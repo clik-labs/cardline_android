@@ -1,10 +1,7 @@
 package kr.edcan.cardline.fragment;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +19,6 @@ import java.util.ArrayList;
 
 import kr.edcan.cardline.BR;
 import kr.edcan.cardline.R;
-import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
 import kr.edcan.cardline.databinding.FragmentSettingsBinding;
 import kr.edcan.cardline.databinding.SettingsAccountContentBinding;
 import kr.edcan.cardline.databinding.SettingsContentBinding;
@@ -34,32 +30,52 @@ import kr.edcan.cardline.models.User;
  * Created by Junseok Oh on 2017-04-09.
  */
 
-public class SettingsFragment {
-    private Context context;
+public class SettingsFragment extends Fragment {
     private FragmentSettingsBinding binding;
     private ArrayList<Object> listData = new ArrayList<>();
     private EventHandler eventHandler;
     private RecyclerView settingsRecyclerView;
-    public SettingsFragment(Context context, FragmentSettingsBinding binding) {
-        this.context = context;
-        this.binding = binding;
+    private int mPageNumber;
+    private String title;
+
+
+    public static SettingsFragment create(int pageNumber) {
+        SettingsFragment fragment = new SettingsFragment();
+        Bundle args = new Bundle();
+        args.putInt("page", pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPageNumber = getArguments().getInt("page");
+        title = getArguments().getString("exchange");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
         initialize();
         setFragment();
+        return binding.getRoot();
     }
 
     private void initialize() {
-        eventHandler = new EventHandler(context);
+        eventHandler = new EventHandler(getContext());
         settingsRecyclerView = binding.settingsRecyclerView;
-        settingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        settingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         listData.add(new User());
-        listData.add(new ListContent(0, context.getResources().getDrawable(R.drawable.title_more_edy), "무엇이든 물어보세요, EDY가 카드라인 사용을 도와드립니다."));
+        listData.add(new ListContent(0, getResources().getDrawable(R.drawable.title_more_edy), "무엇이든 물어보세요, EDY가 카드라인 사용을 도와드립니다."));
         listData.add(new ListContent(1, "주제 재선정", "오늘의 추천에 표시되는 뉴스들을 주제를 설정합니다."));
         listData.add(new ListContent(2, "탐색 기록", "이제까지 보았던 카드들을 볼 수 있습니다."));
     }
 
     private void setFragment() {
         LastAdapter.with(listData, BR.commonContent)
-                .map(User.class, new ItemType<SettingsAccountContentBinding>(R.layout.settings_account_content){
+                .map(User.class, new ItemType<SettingsAccountContentBinding>(R.layout.settings_account_content) {
                     @Override
                     public void onBind(@NotNull ViewHolder<SettingsAccountContentBinding> viewHolder) {
                         super.onBind(viewHolder);

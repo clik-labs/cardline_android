@@ -15,14 +15,14 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".activity.AuthActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.AuthActivity" />
         <activity android:name=".activity.TutorialActivity" />
         <activity android:name=".activity.NotificationActivity" />
         <activity android:name=".activity.AccountActivity" />
@@ -46,8 +46,10 @@
             android:exported="true">`
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
