@@ -1,0 +1,62 @@
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="content"
+            type="kr.edcan.cardline.models.Page" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="76dp"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:minWidth="68dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="0dp"
+        android:paddingTop="12dp">
+
+        <View
+            android:id="@+id/frag_hide_1"
+            android:layout_width="36dp"
+            android:layout_height="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="#000"
+            android:visibility="@{content.seleceted ? View.VISIBLE: View.INVISIBLE}" />
+
+        <LinearLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:background="#dddddd"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/show"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:orientation="horizontal">
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/frag_hide_2"
+            android:layout_width="36dp"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="#000"
+            android:visibility="@{content.seleceted ? View.VISIBLE: View.INVISIBLE}" />
+
+    </RelativeLayout>
+</layout>

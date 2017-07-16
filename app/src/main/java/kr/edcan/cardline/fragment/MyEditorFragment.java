@@ -1,8 +1,6 @@
 package kr.edcan.cardline.fragment;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,20 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.nitrico.lastadapter.BR;
+import com.github.nitrico.lastadapter.Holder;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.github.nitrico.lastadapter.LayoutHandler;
-import com.github.nitrico.lastadapter.Type;
-import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import kr.edcan.cardline.R;
-import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
 import kr.edcan.cardline.databinding.FragmentMyeditorBinding;
 import kr.edcan.cardline.databinding.MainNewsfeedCommonContentBinding;
 import kr.edcan.cardline.databinding.MyeditorHeaderBinding;
@@ -113,24 +107,24 @@ public class MyEditorFragment extends Fragment {
 
     private void setFragment() {
         myEditorRecyclerView.setLayoutManager(layoutManager);
-        LastAdapter.with(dataList, BR.item)
+        new LastAdapter(dataList, BR.item)
                 .map(User.class, new ItemType<MyeditorHeaderBinding>(R.layout.myeditor_header) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<MyeditorHeaderBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<MyeditorHeaderBinding> viewHolder) {
                         super.onBind(viewHolder);
                     }
                 })
                 .map(ArrayList.class, new ItemType<MyeditorPopularListBinding>(R.layout.myeditor_popular_list) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<MyeditorPopularListBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<MyeditorPopularListBinding> viewHolder) {
                         super.onBind(viewHolder);
                         MyeditorPopularListBinding binding = viewHolder.getBinding();
                         binding.popularRecyclerView.setLayoutManager(horizontalPopularLayoutManager);
-                        LastAdapter.with(popularList, BR._all)
+                        new LastAdapter(popularList, BR._all)
                                 .map(CardNews.class, new ItemType<MyeditorPopularListContentBinding>(R.layout.myeditor_popular_list_content) {
 
                                     @Override
-                                    public void onBind(@NotNull ViewHolder<MyeditorPopularListContentBinding> viewHolder) {
+                                    public void onBind(@NotNull Holder<MyeditorPopularListContentBinding> viewHolder) {
                                         super.onBind(viewHolder);
                                     }
                                 })
@@ -139,7 +133,7 @@ public class MyEditorFragment extends Fragment {
                 })
                 .map(CardNews.class, new ItemType<MainNewsfeedCommonContentBinding>(R.layout.main_newsfeed_common_content) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<MainNewsfeedCommonContentBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<MainNewsfeedCommonContentBinding> viewHolder) {
                         super.onBind(viewHolder);
                         viewHolder.getBinding().setEventHandler(eventHandler);
                     }

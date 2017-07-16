@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.nitrico.lastadapter.Holder;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
-import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,17 +74,17 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setFragment() {
-        LastAdapter.with(listData, BR.commonContent)
+        new LastAdapter(listData, BR.commonContent)
                 .map(User.class, new ItemType<SettingsAccountContentBinding>(R.layout.settings_account_content) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<SettingsAccountContentBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<SettingsAccountContentBinding> viewHolder) {
                         super.onBind(viewHolder);
                         viewHolder.getBinding().setEventHandler(eventHandler);
                     }
                 })
                 .map(ListContent.class, new ItemType<SettingsContentBinding>(R.layout.settings_content) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<SettingsContentBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<SettingsContentBinding> viewHolder) {
                         super.onBind(viewHolder);
                         viewHolder.getBinding().setEventHandler(eventHandler);
                     }

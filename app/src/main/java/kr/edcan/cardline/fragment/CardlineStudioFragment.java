@@ -1,23 +1,19 @@
 package kr.edcan.cardline.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.github.nitrico.lastadapter.Holder;
 import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
-import com.github.nitrico.lastadapter.LayoutHandler;
-import com.github.nitrico.lastadapter.ViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,10 +21,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import kr.edcan.cardline.R;
-import kr.edcan.cardline.activity.NewCardActivity;
+import kr.edcan.cardline.activity.EditorMainActivity;
 import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
-import kr.edcan.cardline.databinding.MainNewsfeedCommonContentBinding;
-import kr.edcan.cardline.databinding.MainNewsfeedHeaderBinding;
 import kr.edcan.cardline.databinding.StudioSavedContentBinding;
 import kr.edcan.cardline.databinding.StudioSavedHeaderBinding;
 import kr.edcan.cardline.models.CardNews;
@@ -90,11 +84,11 @@ public class CardlineStudioFragment extends Fragment implements View.OnClickList
                 new CardNews("title", "content", "url"),
                 new CardNews("title", "content", "url"));
 
-        savedCardAdapter = LastAdapter.with(arrayList, BR.item)
+        savedCardAdapter = new LastAdapter(arrayList, BR.item)
                 .map(String.class, new ItemType<StudioSavedHeaderBinding>(R.layout.studio_saved_header))
                 .map(CardNews.class, new ItemType<StudioSavedContentBinding>(R.layout.studio_saved_content) {
                     @Override
-                    public void onBind(@NotNull ViewHolder<StudioSavedContentBinding> viewHolder) {
+                    public void onBind(@NotNull Holder<StudioSavedContentBinding> viewHolder) {
                         super.onBind(viewHolder);
                         viewHolder.getBinding().setActivity(CardlineStudioFragment.this);
                     }
@@ -108,10 +102,10 @@ public class CardlineStudioFragment extends Fragment implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.makeCardOne:
-                startActivity(new Intent(getContext(), NewCardActivity.class).putExtra("cardType", 0));
+                startActivity(new Intent(getContext(), EditorMainActivity.class).putExtra("cardType", 0));
                 break;
             case R.id.makeCardTwo:
-                startActivity(new Intent(getContext(), NewCardActivity.class).putExtra("cardType", 1));
+                startActivity(new Intent(getContext(), EditorMainActivity.class).putExtra("cardType", 1));
                 break;
         }
     }
