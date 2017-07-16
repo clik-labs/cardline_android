@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    >
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
@@ -18,4 +19,11 @@
     <color name="alert_red">#EC5350</color>
     <color name="divider_color">#E6E6E6</color>
     <color name="commonTextColor">#B2B2B2</color>
+
+    <!-- EditorView -->
+    <color name="black">#000000</color>
+    <color name="ucrop_color_toolbar" tools:override="true">#212121</color>
+    <color name="ucrop_color_statusbar" tools:override="true">#212121</color>
+    <color name="ucrop_color_widget_active" tools:override="true">#5b8bf4</color>
+
 </resources>

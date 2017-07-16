@@ -22,4 +22,18 @@
     <string name="dog_cat">멍 / 냥</string>
     <string name="comic_animation">만화 / 애니</string>
     <string name="cooking">요리</string>
+
+    <!-- EditorView -->
+    <string name="label_select_picture">Select Picture</string>
+    <string name="label_cancel">취소</string>
+    <string name="label_ok">네</string>
+
+    <string name="permission_title_rationale">Permission needed</string>
+    <string name="permission_read_storage_rationale">Storage read permission is needed to pick files.</string>
+
+    <string name="toast_cannot_retrieve_selected_image">Cannot retrieve selected image</string>
+
+    <string name="close_text">카드뉴스 작성을 취소</string>
+    <string name="background_resource">background_resource.png</string>
+    <string name="input">텍스트 편집</string>
 </resources>
