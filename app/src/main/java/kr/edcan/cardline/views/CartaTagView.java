@@ -228,5 +228,6 @@ public class CartaTagView extends AppCompatTextView {
         setShapeColor(configuration.getThemeColor());
         if(configuration.isTextColorEnabled()) setTextColorForceFully(configuration.getTextColor());
         setShapeGradientColor(configuration.getGradientStartColor(), configuration.getGradientEndColor());
+        requestLayout();
     }
 }
