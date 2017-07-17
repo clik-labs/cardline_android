@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.ActivityAuthBinding;
+import kr.edcan.cardline.models.User;
 import kr.edcan.cardline.utils.NetworkHelper;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -37,23 +38,18 @@ public class AuthActivity extends BaseActivity {
             public void onSuccess(LoginResult loginResult) {
                 Log.e("asdf", loginResult.getAccessToken().getToken());
                 binding.token.setText("Token : " + loginResult.getAccessToken().getToken());
-                NetworkHelper.getNetworkInstance().loginByFacebook(loginResult.getAccessToken().getToken()).enqueue(new Callback<ResponseBody>() {
+                NetworkHelper.getNetworkInstance().loginByFacebook(loginResult.getAccessToken().getToken()).enqueue(new Callback<User>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    public void onResponse(Call<User> call, Response<User> response) {
                         binding.result.setText("HTTP " + response.code());
                         switch (response.code()) {
                             case 200:
-                                try {
-                                    binding.result.append("\n" + response.body().string());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
                                 break;
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    public void onFailure(Call<User> call, Throwable t) {
                         binding.result.setText(t.getLocalizedMessage());
                     }
                 });
