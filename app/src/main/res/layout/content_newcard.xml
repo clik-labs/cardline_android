@@ -1,0 +1,23 @@
+<layout>
+
+    <data>
+
+        <variable
+            name="content"
+            type="kr.edcan.cardline.activity.NewCardActivity.Type" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <kr.edcan.cardline.views.CartaTagView
+            android:id="@+id/tagView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@{content.title}" />
+    </LinearLayout>
+</layout>

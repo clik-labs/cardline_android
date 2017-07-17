@@ -31,7 +31,9 @@
         <activity android:name=".activity.SetFavoriteCategoryActivity" />
         <activity android:name=".activity.HistoryActivity" />
         <activity android:name=".activity.FavoriteCardlineActivity" />
-        <activity android:name=".activity.NewCardActivity" />
+        <activity
+            android:name=".activity.NewCardActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.CardEditorActivity" />
         <activity android:name=".activity.EditorPageSettingsActivity" />
         <activity android:name=".activity.EditorPageViewActivity" />
