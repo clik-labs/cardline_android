@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 
 public class User {
+    private int userType = 0;
     private String email, name, token, profile, profile_img, facebook_id;
 
     public User() {
@@ -67,5 +68,13 @@ public class User {
 
     public void setFacebook_id(String facebook_id) {
         this.facebook_id = facebook_id;
+    }
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 }
