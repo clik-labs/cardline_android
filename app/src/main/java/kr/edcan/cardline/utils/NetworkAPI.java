@@ -163,4 +163,11 @@ public interface NetworkAPI {
             @Field("email") String email
     );
 
+    @POST("/firebase/update")
+    @FormUrlEncoded
+    Call<ResponseBody> updateFirebaseToken(
+            @Field("token") String token,
+            @Field("firebase_token") String firebase_token
+    );
+
 }
