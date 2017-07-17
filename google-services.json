@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "61649697908",
+    "firebase_url": "https://clik-labs.firebaseio.com",
+    "project_id": "clik-labs",
+    "storage_bucket": "clik-labs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61649697908:android:1ecbb55da966934e",
+        "android_client_info": {
+          "package_name": "kr.edcan.cardline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61649697908-fr45pcos2uk6cp5taauufab72g1lduir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiL9DRF2tz2saOdrNWYgW7WIqQ_JlW5P4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
