@@ -1,11 +1,9 @@
 package kr.edcan.cardline.activity;
 
-import android.databinding.ViewDataBinding;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -22,7 +20,6 @@ import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.ActivityNewCardBinding;
 import kr.edcan.cardline.databinding.ContentNewcardBinding;
 import kr.edcan.cardline.utils.CartaTagThemeHelper;
-import kr.edcan.cardline.views.CartaTagConfiguration;
 import kr.edcan.cardline.views.CartaTagView;
 
 public class NewCardActivity extends BaseActivity {
@@ -76,6 +73,9 @@ public class NewCardActivity extends BaseActivity {
             public void onClick(View view) {
                 // Launch EditActivity
                 int type = currentSelectedPosition();
+                startActivity(new Intent(getApplicationContext(), EditorMainActivity.class)
+                        .putExtra("type", type)
+                        .putExtra("title", binding.newCardTitle.getText().toString()));
             }
         });
     }

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import kr.edcan.cardline.R;
-import kr.edcan.cardline.activity.EditorMainActivity;
+import kr.edcan.cardline.activity.NewCardActivity;
 import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
 import kr.edcan.cardline.databinding.StudioSavedContentBinding;
 import kr.edcan.cardline.databinding.StudioSavedHeaderBinding;
@@ -100,13 +100,14 @@ public class CardlineStudioFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.makeCardOne:
-                startActivity(new Intent(getContext(), EditorMainActivity.class).putExtra("cardType", 0));
-                break;
-            case R.id.makeCardTwo:
-                startActivity(new Intent(getContext(), EditorMainActivity.class).putExtra("cardType", 1));
-                break;
-        }
+        startActivity(new Intent(getContext(), NewCardActivity.class));
+//        switch (view.getId()) {
+//            case R.id.makeCardOne:
+//                startActivity(new Intent(getContext(), EditorMainActivity.class).putExtra("cardType", 0));
+//                break;
+//            case R.id.makeCardTwo:
+//                startActivity(new Intent(getContext(), EditorMainActivity.class).putExtra("cardType", 1));
+//                break;
+//        }
     }
 }

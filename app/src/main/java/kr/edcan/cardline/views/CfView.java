@@ -197,7 +197,7 @@ public class CfView extends FrameLayout {
                 break;
         }
 
-        currentShow = ((EditorMainActivity) cv).getLtoB();
+//        currentShow = ((EditorMainActivity) cv).getLtoB();
         return true;
     }
 
@@ -283,7 +283,7 @@ public class CfView extends FrameLayout {
     }
 
     public void setCardBackground(Bitmap b) {
-        ImageView iv = (ImageView) findViewById(R.id.tfv);
+        ImageView iv = findViewById(R.id.tfv);
         back_resource = b;
         iv.setImageBitmap(b);
     }
@@ -390,7 +390,9 @@ public class CfView extends FrameLayout {
     public PageExt createIndiFormat() {
         PageExt ext = new PageExt();
 
-        ext.setMainImg(bTof(currentShow, "show", page));
+        Bitmap b = ((EditorMainActivity) cv).getLtoB();
+        ext.setMainImg(bTof(b, "show", page));
+        b.recycle();
         ext.setPage(page);
         ext.setResCount(Pair.create(cardList.size(), drawList.size()));
         if (back_resource != null) {
@@ -686,5 +688,6 @@ public class CfView extends FrameLayout {
     public int getRealHeight() {
         return realHeight;
     }
+
 
 }

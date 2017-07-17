@@ -21,9 +21,9 @@
                 android:scrollbars="none">
 
                 <LinearLayout
-                    android:background="@drawable/activity_background"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/activity_background"
                     android:orientation="horizontal"
                     android:padding="16dp">
 
@@ -46,6 +46,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:foreground="?attr/selectableItemBackground"
+                        android:visibility="gone"
                         app:cardCornerRadius="20dp"
                         app:cardUseCompatPadding="true">
 

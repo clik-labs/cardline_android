@@ -49,4 +49,7 @@ dependencies {
     compile 'com.xw.repo:bubbleseekbar:3.4-lite'
     compile 'com.github.nitrico.fontbinder:fontbinder:1.0.5'
 
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 }

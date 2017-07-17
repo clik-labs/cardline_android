@@ -72,6 +72,8 @@ public class EditorMainActivity extends EditorBaseActivity {
     protected CfView cfv;
     protected LastAdapter adapter;
     private Context context;
+    private String title = "";
+    private int type = 0;
 
     private final String TAG = "MainActivityCf";
 
@@ -215,12 +217,12 @@ public class EditorMainActivity extends EditorBaseActivity {
             }
         });
 
-        cfv.post(new Runnable() {
-            @Override
-            public void run() {
-                preset();
-            }
-        });
+//        cfv.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                preset();
+//            }
+//        });
     }
 
     public void fillThread() {
@@ -246,18 +248,27 @@ public class EditorMainActivity extends EditorBaseActivity {
                                         Toast.makeText(EditorMainActivity.this, "에러", Toast.LENGTH_SHORT).show();
                                         return;
                                     }
-                                    cfv.post(new Runnable() {
+                                    postFlag = 5;
+                                    runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             showingView.setBackground(bm);
+                                            showingView.invalidate();
+                                            Bitmap b = bm.getBitmap();
+                                            if (b.isRecycled())
+                                                b.recycle();
+                                            b = null;
+                                            System.gc();
+//                                            cfv.currentShow.recycle();
+//                                            cfv.currentShow = null;
                                         }
                                     });
-                                    postFlag = 3;
                                 }
                                 SystemClock.sleep(1000);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
+
                         }
                     }
                 }.start();
@@ -268,6 +279,12 @@ public class EditorMainActivity extends EditorBaseActivity {
     private void init() {
         cfv = binding.cfview;
         cfv.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
+        Intent i = getIntent();
+        title = i.getStringExtra("title");
+        type = i.getIntExtra("type", 0);
+
+        Log.e(TAG, "init: title: " + title + " type: " + type);
 
 
         List<String> data = new ArrayList<>();
@@ -440,7 +457,7 @@ public class EditorMainActivity extends EditorBaseActivity {
             tv.setText("제목");   // TODO 제목 Intent로 받아서 넣어야됨
             tv.setTextSize(40);
 
-            int cwidth = cfv.getRealHeight() / 2;
+            int cwidth = cfv.getRealWidth() / 2;
             int cheight = cfv.getRealHeight() / 2;
 
             Rect rect1 = new Rect();     // tv 실제 사이즈 구하기
@@ -715,7 +732,7 @@ public class EditorMainActivity extends EditorBaseActivity {
      */
 
     public Bitmap getLtoB() {   // LinearLayout to Bitmap
-        cfv.currentShow.recycle();
+        cfv.currentShow = null;
         Bitmap snapshot = Bitmap.createBitmap(cfv.getMeasuredWidth(), cfv.getMeasuredHeight(), Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(snapshot);
         cfv.draw(canvas);
@@ -764,6 +781,7 @@ public class EditorMainActivity extends EditorBaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Runtime.getRuntime().gc();
     }
 
     private boolean deleteDir(File dir) {
@@ -776,7 +794,6 @@ public class EditorMainActivity extends EditorBaseActivity {
                 }
             }
         }
-
         return dir.delete();
     }
 
@@ -805,6 +822,7 @@ public class EditorMainActivity extends EditorBaseActivity {
         });
         return tv;
     }
+
 
 }
 
