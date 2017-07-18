@@ -118,6 +118,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.myeditorpage_settings:
                 // 내 에디터 페이지 - 설정
+                startActivity(new Intent(getApplicationContext(), EditorPageSettingsActivity.class));
                 break;
             case R.id.settings_info:
                 // 더보기 - 정보

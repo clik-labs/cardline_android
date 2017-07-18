@@ -23,7 +23,6 @@ public class SplashActivity extends BaseActivity {
                 public void onResponse(Call<User> call, Response<User> response) {
                     switch (response.code()){
                         case 200:
-                            CredentialsManager.getInstance()
                             break;
                         default:
                             Toast.makeText(SplashActivity.this, "세션이 만료되었습니다. 다시 로그인해주세요.", Toast.LENGTH_SHORT).show();

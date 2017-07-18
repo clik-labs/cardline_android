@@ -1,8 +1,7 @@
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_editor_page_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -26,10 +25,12 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:id="@+id/profileImageChange"
                     android:layout_width="70dp"
                     android:layout_height="70dp">
 
                     <kr.edcan.cardline.views.RoundImageView
+                        android:id="@+id/profileImageShow"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/image01" />
@@ -77,11 +78,13 @@
                         android:textSize="12sp" />
 
                     <EditText
+                        android:id="@+id/nameInput"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:drawablePadding="8dp"
                         android:drawableRight="@drawable/btn_editorsettings_editnickname"
+                        android:hint="이름을 입력해주세요!"
                         android:text="Luminon Canoness"
                         android:textColor="#000000"
                         android:textSize="16sp"
@@ -111,9 +114,11 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/profileTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:hint="소개글을 입력해주세요!"
                     android:text="Luminon Canoness"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -130,25 +135,52 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="인기글 활성화"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="인기글 활성화"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="소개글"
+                        android:textColor="#8f000000"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <com.rey.material.widget.Switch
+                    android:id="@+id/populateSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="소개글"
-                    android:textColor="#8f000000"
-                    android:textSize="12sp" />
+                    android:layout_gravity="center" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <kr.edcan.cardline.views.CartaTagView
+                android:id="@+id/comfirmUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="완료"
+                app:fullMode="true" />
         </LinearLayout>
     </LinearLayout>
 </layout>
