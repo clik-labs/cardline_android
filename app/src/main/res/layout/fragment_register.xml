@@ -18,16 +18,17 @@
             android:singleLine="true" />
 
         <EditText
-            android:layout_width="match_parent"
             android:id="@+id/nicknameInput"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/login_register_et_input_bg"
             android:hint="닉네이"
             android:padding="16dp"
-            3 ㅊ android:singleLine="true" />
+            android:singleLine="true" />
 
         <EditText
+            android:id="@+id/passwordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -38,6 +39,7 @@
             android:singleLine="true" />
 
         <EditText
+            android:id="@+id/passwordReInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
