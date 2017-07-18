@@ -1,0 +1,64 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/activity_background"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_register_et_input_bg"
+            android:hint="ID로 사용할 유효한 이메일"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/nicknameInput"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/login_register_et_input_bg"
+            android:hint="닉네이"
+            android:padding="16dp"
+            3 ㅊ android:singleLine="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/login_register_et_input_bg"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/login_register_et_input_bg"
+            android:hint="비밀번호 확인"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:singleLine="true" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <kr.edcan.cardline.views.CartaTagView
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="회원가입"
+            app:fullMode="true" />
+
+    </LinearLayout>
+</layout>

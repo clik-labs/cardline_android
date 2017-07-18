@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import kr.edcan.cardline.activity.AccountActivity;
+import kr.edcan.cardline.activity.AuthActivity;
 import kr.edcan.cardline.activity.EDYActivity;
 import kr.edcan.cardline.activity.HistoryActivity;
 import kr.edcan.cardline.models.CardNews;
@@ -66,8 +67,9 @@ public class EventHandler {
     public void onAccountListClick(int position){
         switch (position){
             case 0:
-                // Facebook Login Connect, Disconnect
+                context.startActivity(new Intent(context, AuthActivity.class));
                 break;
+                // Facebook Login Connect, Disconnect
             case 1:
                 // Synchorize
                 break;

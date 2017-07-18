@@ -11,19 +11,17 @@ import com.facebook.FacebookSdk;
 
 public class AppController extends Application {
 
-    static AppController controller;
-    public static AppController getInstance(){
-        if(controller == null) controller = new AppController();
-        return controller;
-    };
+    private static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = getApplicationContext();
         FacebookSdk.sdkInitialize(this);
     }
 
-    public Context getContext(){
-        return this.getApplicationContext();
+    public static Context getContext() {
+        return mContext;
     }
+
 }

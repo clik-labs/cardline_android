@@ -7,8 +7,6 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -19,16 +17,10 @@ import java.util.ArrayList;
 
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.ActivityMainBinding;
-import kr.edcan.cardline.databinding.FragmentCardlinestudioBinding;
-import kr.edcan.cardline.databinding.FragmentMyeditorBinding;
-import kr.edcan.cardline.databinding.FragmentNewsfeedBinding;
-import kr.edcan.cardline.databinding.FragmentSettingsBinding;
 import kr.edcan.cardline.fragment.CardlineStudioFragment;
 import kr.edcan.cardline.fragment.MyEditorFragment;
 import kr.edcan.cardline.fragment.NewsFeedFragment;
 import kr.edcan.cardline.fragment.SettingsFragment;
-import kr.edcan.cardline.models.Notification;
-import kr.edcan.cardline.views.AliveFragmentView;
 import kr.edcan.cardline.views.ControllableViewPager;
 
 public class MainActivity extends BaseActivity {

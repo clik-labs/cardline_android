@@ -1,0 +1,75 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/activity_background"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebookOriginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/continue_with_facebook"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_bg_fb_selector"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_login_facebook"
+            android:gravity="center|center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="24dp"
+            android:text="Facebook으로 로그인"
+            android:textColor="#FFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:text="또는 일반 계정으로 로그인"
+            android:textColor="@color/textColorDark"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_register_et_input_bg"
+            android:hint="이메일"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/passwordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/login_register_et_input_bg"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:singleLine="true" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <kr.edcan.cardline.views.CartaTagView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="로그인"
+            app:fullMode="true" />
+
+    </LinearLayout>
+</layout>

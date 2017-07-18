@@ -37,7 +37,7 @@ public class CredentialsManager {
     }
 
     private CredentialsManager() {
-        context = AppController.getInstance().getContext();
+        context = AppController.getContext();
         preferences = context.getSharedPreferences("Cardline", Context.MODE_PRIVATE);
         editor = preferences.edit();
     }
