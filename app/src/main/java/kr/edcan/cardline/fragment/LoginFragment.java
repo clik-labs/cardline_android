@@ -19,6 +19,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import kr.edcan.cardline.R;
+import kr.edcan.cardline.activity.MainActivity;
 import kr.edcan.cardline.databinding.FragmentLoginBinding;
 import kr.edcan.cardline.models.User;
 import kr.edcan.cardline.utils.CredentialsManager;
@@ -58,6 +59,8 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        String permissions[] = new String[]{"email", "user_about_me"};
+        loginButton.setReadPermissions(permissions);
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -69,7 +72,9 @@ public class LoginFragment extends Fragment {
                             case 200:
                                 CredentialsManager.getInstance().saveFacebookCredential(loginResult.getAccessToken().getToken());
                                 CredentialsManager.getInstance().saveUserInfo(response.body(), 0);
+                                Log.e("asdf", response.body().getProfile_img());
                                 Toast.makeText(getContext(), response.body().getName() + " 님 환영합니다!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getContext(), MainActivity.class));
                                 getActivity().finish();
                                 break;
                             default:
@@ -111,6 +116,7 @@ public class LoginFragment extends Fragment {
                                 case 200:
                                     CredentialsManager.getInstance().saveUserInfo(response.body(), 1);
                                     Toast.makeText(getContext(), response.body().getName() + " 님 환영합니다!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getContext(), MainActivity.class));
                                     getActivity().finish();
                                     break;
                                 case 401:

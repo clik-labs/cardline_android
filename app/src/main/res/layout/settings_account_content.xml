@@ -5,7 +5,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="user"
+            name="commonContent"
             type="kr.edcan.cardline.models.User" />
 
         <variable
@@ -61,7 +61,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="shiori@itsuka.me"
+                        android:text="@{commonContent.name}"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -69,7 +69,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="동기화 켜짐"
+                        android:text="@{commonContent.email}"
                         android:textColor="@color/commonTextColor"
                         android:textSize="14sp" />
                 </LinearLayout>

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.github.nitrico.lastadapter.BR;
 import com.github.nitrico.lastadapter.Holder;
@@ -20,14 +21,16 @@ import kr.edcan.cardline.databinding.AccountContentBinding;
 import kr.edcan.cardline.databinding.ActivityAccountBinding;
 import kr.edcan.cardline.handler.EventHandler;
 import kr.edcan.cardline.models.AccountContent;
+import kr.edcan.cardline.utils.CredentialsManager;
 
 public class AccountActivity extends BaseActivity {
 
     private RecyclerView accountRecyclerView;
     private EventHandler eventHandler;
     private ArrayList<AccountContent> dataList = new ArrayList<>();
-    private boolean isLogin = false, isSyncing = false, isEditorPro = false;
+    private boolean isLogin = false, isSyncing = false, isEditorPro = true;
     private ActivityAccountBinding binding;
+    private TextView email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +42,16 @@ public class AccountActivity extends BaseActivity {
         setToolbarTitle("계정");
         binding = (ActivityAccountBinding) baseBinding;
         accountRecyclerView = binding.accountRecyclerView;
+        email = binding.accountText;
         eventHandler = new EventHandler(this);
         accountRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         dataList.add(new AccountContent(
                 0,
-                "Facebook 계정 연결하기",
-                "계정이 연결되어 있으면 앞으로 Facebook 인증으로 로그인 할 수 있습니다.",
+                "로그아웃",
+                CredentialsManager.getInstance().getActiveUser().second.getEmail() + " 계정으로부터 로그이웃합니다.",
                 getResources().getDrawable((isLogin) ? R.drawable.ic_account_facebook_on : R.drawable.ic_account_facebook_off)));
         dataList.add(new AccountContent(
                 1,
-                "동기화 켜기",
-                "동기화 하여 모든 기기에서 작업을 이어해 보세요.",
-                getResources().getDrawable((isSyncing) ? R.drawable.ic_account_sync_on : R.drawable.ic_account_sync_off)));
-        dataList.add(new AccountContent(
-                2,
                 "Editor Pro 신청",
                 "기업, 공인을 위한 인증 마크, 전용 서비스를 제공받을 수 있습니다.",
                 getResources().getDrawable((isEditorPro) ? R.drawable.ic_account_editorpro_on : R.drawable.ic_account_editorpro_off)));
@@ -66,7 +65,7 @@ public class AccountActivity extends BaseActivity {
                 })
                 .into(accountRecyclerView);
 
-        binding.accountText.setText("Here Goes Your Email");
+        email.setText(CredentialsManager.getInstance().getActiveUser().second.getEmail());
     }
 
     @Override
@@ -86,6 +85,9 @@ public class AccountActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         /* TODO Sync Account Data */
+        if (email != null)
+            email.setText(CredentialsManager.getInstance().getActiveUser().second.getEmail());
+
     }
 
     @Override

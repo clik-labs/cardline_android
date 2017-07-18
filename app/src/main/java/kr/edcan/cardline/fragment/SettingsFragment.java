@@ -25,6 +25,7 @@ import kr.edcan.cardline.databinding.SettingsContentBinding;
 import kr.edcan.cardline.handler.EventHandler;
 import kr.edcan.cardline.models.ListContent;
 import kr.edcan.cardline.models.User;
+import kr.edcan.cardline.utils.CredentialsManager;
 
 /**
  * Created by Junseok Oh on 2017-04-09.
@@ -35,6 +36,7 @@ public class SettingsFragment extends Fragment {
     private ArrayList<Object> listData = new ArrayList<>();
     private EventHandler eventHandler;
     private RecyclerView settingsRecyclerView;
+    private LastAdapter adapter;
     private int mPageNumber;
     private String title;
 
@@ -67,14 +69,14 @@ public class SettingsFragment extends Fragment {
         eventHandler = new EventHandler(getContext());
         settingsRecyclerView = binding.settingsRecyclerView;
         settingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        listData.add(new User());
+        listData.add(CredentialsManager.getInstance().getActiveUser().second);
         listData.add(new ListContent(0, getResources().getDrawable(R.drawable.title_more_edy), "무엇이든 물어보세요, EDY가 카드라인 사용을 도와드립니다."));
         listData.add(new ListContent(1, "주제 재선정", "오늘의 추천에 표시되는 뉴스들을 주제를 설정합니다."));
         listData.add(new ListContent(2, "탐색 기록", "이제까지 보았던 카드들을 볼 수 있습니다."));
     }
 
     private void setFragment() {
-        new LastAdapter(listData, BR.commonContent)
+        adapter = new LastAdapter(listData, BR.commonContent)
                 .map(User.class, new ItemType<SettingsAccountContentBinding>(R.layout.settings_account_content) {
                     @Override
                     public void onBind(@NotNull Holder<SettingsAccountContentBinding> viewHolder) {
@@ -90,5 +92,15 @@ public class SettingsFragment extends Fragment {
                     }
                 })
                 .into(binding.settingsRecyclerView);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (listData.size() != 0) {
+            listData.remove(0);
+            listData.add(0, CredentialsManager.getInstance().getActiveUser().second);
+            adapter.notifyDataSetChanged();
+        }
     }
 }

@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import kr.edcan.cardline.R;
+import kr.edcan.cardline.activity.AuthActivity;
 import kr.edcan.cardline.databinding.FragmentRegisterBinding;
 import kr.edcan.cardline.models.User;
 import kr.edcan.cardline.utils.CredentialsManager;
 import kr.edcan.cardline.utils.NetworkHelper;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,6 +26,8 @@ import retrofit2.Response;
  */
 
 public class RegisterFragment extends Fragment {
+    FragmentRegisterBinding binding;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,38 +36,37 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentRegisterBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false);
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false);
         binding.register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (binding.emailInput.getText().toString().trim().equals("") || binding.passwordInput.getText().toString().trim().equals(""))
+                if (binding.emailInput.getText().toString().trim().equals("") || binding.passwordInput.getText().toString().trim().equals("") || binding.passwordReInput.getText().toString().trim().equals("") || binding.nameInput.getText().toString().trim().equals(""))
                     Toast.makeText(getContext(), "빈칸 없이 입력해주세요", Toast.LENGTH_SHORT).show();
-                else {
-                    NetworkHelper.getNetworkInstance().loginByLocal(
+                else if (binding.passwordInput.getText().toString().trim().equals(binding.passwordReInput.getText().toString().trim())) {
+                    NetworkHelper.getNetworkInstance().registerLocal(
                             binding.emailInput.getText().toString().trim(),
+                            binding.nameInput.getText().toString().trim(),
                             binding.passwordInput.getText().toString().trim()
-                    ).enqueue(new Callback<User>() {
+                    ).enqueue(new Callback<ResponseBody>() {
                         @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             switch (response.code()) {
                                 case 200:
-                                    CredentialsManager.getInstance().saveUserInfo(response.body(), 1);
-                                    Toast.makeText(getContext(), response.body().getName() + " 님 환영합니다!", Toast.LENGTH_SHORT).show();
-                                    getActivity().finish();
+                                    Toast.makeText(getContext(), "회원가입이 완료되었습니다!", Toast.LENGTH_SHORT).show();
+                                    ((AuthActivity) getActivity()).switchPage(1);
                                     break;
-                                case 401:
-                                    Toast.makeText(getContext(), "아이디 혹은 비밀번호가 잘못되었습니다!", Toast.LENGTH_SHORT).show();
+                                case 409:
+                                    Toast.makeText(getContext(), "이미 존재하는 이메일입니다!", Toast.LENGTH_SHORT).show();
                                     break;
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<User> call, Throwable t) {
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
                             Log.e("asdf", t.getLocalizedMessage());
                         }
                     });
-                }
+                } else Toast.makeText(getContext(), "비밀번호가 일치하지 않습니다!", Toast.LENGTH_SHORT).show();
             }
         });
         return binding.getRoot();

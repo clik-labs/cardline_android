@@ -52,6 +52,10 @@ public class AuthActivity extends BaseActivity {
         fragment.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void switchPage(int position){
+        if(position > adapter.getCount()) return;
+        bottomPager.setCurrentItem(position);
+    }
     @Override
     protected int onCreateViewId() {
         return R.layout.activity_auth;
