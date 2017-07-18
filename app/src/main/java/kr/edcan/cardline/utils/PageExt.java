@@ -3,6 +3,7 @@ package kr.edcan.cardline.utils;
 import android.util.Pair;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -122,31 +123,41 @@ public class PageExt {
         return res_txt.get(i);
     }
 
-    public JSONArray getImageData(int i) {
-        ResManager res = res_img.get(i);
-        JSONArray array = new JSONArray();
-        array.put(res.getImgName());
-        array.put(Math.round(res.getX()));
-        array.put(Math.round(res.getY()));
-        array.put(res.getWidth());
-        array.put(res.getHeight());
-        return array;
+    public JSONObject getImageData(int i) {
+        try {
+            ResManager res = res_img.get(i);
+            JSONObject array = new JSONObject();
+            array.put("main_img", res.getImgName());
+            array.put("x", Math.round(res.getX()));
+            array.put("y", Math.round(res.getY()));
+            array.put("width", res.getWidth());
+            array.put("height", res.getHeight());
+            return array;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public int getImageSize() {
         return res_img.size();
     }
 
-    public JSONArray getTextData(int i) {
-        ResManager res = res_txt.get(i);
-        JSONArray array = new JSONArray();
-        array.put(res.getTxt());
-        array.put(Math.round(res.getX()));
-        array.put(Math.round(res.getY()));
-        array.put(res.getSize());
-        array.put(res.getFont());
-        array.put(res.getColor());
-        return array;
+    public JSONObject getTextData(int i) {
+        try {
+            ResManager res = res_txt.get(i);
+            JSONObject array = new JSONObject();
+            array.put("text", res.getTxt());
+            array.put("x", Math.round(res.getX()));
+            array.put("y", Math.round(res.getY()));
+            array.put("size", res.getSize());
+            array.put("font", res.getFont());
+            array.put("color", res.getColor());
+            return array;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public int getTextSize() {

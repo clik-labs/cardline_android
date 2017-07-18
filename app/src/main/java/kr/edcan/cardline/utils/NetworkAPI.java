@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import kr.edcan.cardline.models.CardNews;
 import kr.edcan.cardline.models.Notification;
@@ -17,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 /**
@@ -24,7 +26,6 @@ import retrofit2.http.Query;
  */
 
 public interface NetworkAPI {
-
     @GET("/auth/facebook/token")
     Call<User> loginByFacebook(@Query("access_token") String token);
 
@@ -130,6 +131,7 @@ public interface NetworkAPI {
             @Field("token") String token
     );
 
+
     @POST("/card/dislike")
     @FormUrlEncoded
     Call<ResponseBody> disLikeCard(
@@ -137,30 +139,47 @@ public interface NetworkAPI {
             @Field("token") String token
     );
 
+    @POST("/user/info")
+    @FormUrlEncoded
+    Call<User> getUserInfo(
+            @Field("email") String email
+    );
+
+    /*
+      HELP
+      HELP ** EditorView API **
+      HELP
+     */
+
     @POST("/card/post")
     @FormUrlEncoded
-    Call<CardNews> postCardPost(
-            // TODO Must Fill Field
+    Call<CardNews> newCardNews(
+            @Field("card_token") String cardToken,
+            @Field("card_title") String card_title,
+            @Field("card_page") int card_page,
+            @Field("category") int category
     );
 
     @POST("/card/post/uploadImage")
     @Multipart
-    Call<ResponseBody> uploadPostImage(
+    Call<ResponseBody> uploadCardImage(
+            @Part("card_token") RequestBody cardToken,
+            @PartMap() Map<String,RequestBody> mapFileAndName,
+            @Part("file\"; filename=\"data_json\"") RequestBody data_json,
+            @Part("card") RequestBody cardKey
             // TODO Must Fill Field
     );
+
+//    @Part("file\"; filename=\"image.jpg\"") RequestBody image,
+//    @Part("groupname") RequestBody groupname,
+//    @Part("apikey") RequestBody groupAdminid,
+//    @Part("limit") RequestBody limit);
 
 
     @POST("/card/post/edit")
     @FormUrlEncoded
     Call<ResponseBody> editPost(
             // TODO Must Fill Field
-    );
-
-
-    @POST("/user/info")
-    @FormUrlEncoded
-    Call<User> getUserInfo(
-            @Field("email") String email
     );
 
 }

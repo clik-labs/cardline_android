@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -44,20 +43,35 @@ import com.github.nitrico.lastadapter.ItemType;
 import com.github.nitrico.lastadapter.LastAdapter;
 import com.yalantis.ucrop.UCrop;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.EditorActivityMainBinding;
 import kr.edcan.cardline.databinding.EditorStudioFragViewBinding;
 import kr.edcan.cardline.databinding.EditorStudioLastFooterBinding;
+import kr.edcan.cardline.models.CardNews;
 import kr.edcan.cardline.models.Page;
+import kr.edcan.cardline.utils.NetworkHelper;
 import kr.edcan.cardline.views.CfView;
 import kr.edcan.cardline.views.FooterView;
 import kr.edcan.cardline.views.InText;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -143,8 +157,11 @@ public class EditorMainActivity extends EditorBaseActivity {
         binding.btnStudioDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {   // TODO 완료버튼
-                cfv.createIndiFormat();
-                adapter.notifyDataSetChanged();
+//                cfv.createIndiFormat();
+//                adapter.notifyDataSetChanged();
+                String token = "token";
+                Log.e(TAG, "done: title: " + title + " author: " + token + " page: " + cfv.getLimitPage() + " type: " + type);
+
             }
         });
 
@@ -217,12 +234,6 @@ public class EditorMainActivity extends EditorBaseActivity {
             }
         });
 
-//        cfv.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                preset();
-//            }
-//        });
     }
 
     public void fillThread() {
@@ -378,164 +389,6 @@ public class EditorMainActivity extends EditorBaseActivity {
                 .into(binding.cv);
     }
 
-    public void preset() {
-        Intent intent = getIntent();
-        int flag = intent.getIntExtra("cardType", 0);
-        if (flag == 0) {
-            final InText tv = new InText(getApplicationContext());      // 1번 텍스트
-            tv.setText("제목");   // TODO 제목 Intent로 받아서 넣어야됨
-            tv.setTextSize(44);
-            tv.setNx(12 * 4);
-            tv.setX(12 * 4);
-            tv.setNy(16 * 4);
-            tv.setY(16 * 4);
-            tv.setTextColor(Color.parseColor("#000000"), "#000000");
-            tv.setTypeface(FontBinder.get("NanumSquareB"), "NanumSquareB");
-            tv.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (NOW_EDITING == EDITING_TEXT) {
-                        if (!_dialog)
-                            showXDialog(tv);
-                    } else if (cfv.getLocked()) {
-                        return false;
-                    }
-
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            cfv.setFlag(true, tv);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            cfv.setFlag(false);
-                            break;
-                    }
-                    return true;
-                }
-            });
-            cfv.addCard(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            final InText tv2 = new InText(getApplicationContext());     // 2번 텍스트
-            tv2.setText("작성자"); //TODO 작성자 가져와서 넣기
-            tv2.setTextSize(22);
-            tv2.setNx(12 * 8);
-            tv2.setX(12 * 8);
-            tv2.setNy(28 * 8);
-            tv2.setY(28 * 8);
-            tv2.setTextColor(Color.parseColor("#000000"), "#000000");
-
-            tv2.setTypeface(FontBinder.get("NanumGothic"), "NanumGothic");
-            tv2.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (NOW_EDITING == EDITING_TEXT) {
-                        if (!_dialog)
-                            showXDialog(tv2);
-                    } else if (cfv.getLocked()) {
-                        return false;
-                    }
-
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            cfv.setFlag(true, tv2);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            cfv.setFlag(false);
-                            break;
-                    }
-                    return true;
-                }
-            });
-            cfv.addCard(tv2, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
-
-        /**
-         *  [분기점] 가독성 상향 필
-         */
-
-        else if (flag == 1) {
-            final InText tv = new InText(getApplicationContext());      // 1번 텍스트
-            tv.setText("제목");   // TODO 제목 Intent로 받아서 넣어야됨
-            tv.setTextSize(40);
-
-            int cwidth = cfv.getRealWidth() / 2;
-            int cheight = cfv.getRealHeight() / 2;
-
-            Rect rect1 = new Rect();     // tv 실제 사이즈 구하기
-            tv.getPaint().getTextBounds(tv.getText().toString(), 0, tv.getText().length(), rect1);
-
-            tv.setNx(cwidth - rect1.width() / 2);
-            tv.setX(cwidth - rect1.width() / 2);
-            tv.setNy(cheight - rect1.height() / 2 - 12 * 4);
-            tv.setY(cheight - rect1.height() / 2 - 12 * 4);
-
-            Log.e(TAG, "preset: width2:" + (cwidth - rect1.width() / 2) + " height2: " + (cheight - rect1.height() / 2 - 12));
-
-            tv.setTextColor(Color.parseColor("#000000"), "#000000");
-
-            tv.setTypeface(FontBinder.get("NanumGothic"), "NanumGothic");
-            tv.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (NOW_EDITING == EDITING_TEXT) {
-                        if (!_dialog)
-                            showXDialog(tv);
-                    } else if (cfv.getLocked()) {
-                        return false;
-                    }
-
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            cfv.setFlag(true, tv);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            cfv.setFlag(false);
-                            break;
-                    }
-                    return true;
-                }
-            });
-            cfv.addCard(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            final InText tv2 = new InText(getApplicationContext());     // 2번 텍스트
-            tv2.setText("작성자"); //TODO 작성자 가져와서 넣기
-            tv2.setTextSize(22);
-
-            Rect rect2 = new Rect();     // tv 실제 사이즈 구하기
-            tv.getPaint().getTextBounds(tv.getText().toString(), 0, tv.getText().length(), rect2);
-
-            tv2.setNx(cwidth - rect2.width() / 2);
-            tv2.setX(cwidth - rect2.width() / 2);
-            tv2.setNy(cheight - rect2.height() / 2 + 24 * 4);
-            tv2.setY(cheight - rect2.height() / 2 + 24 * 4);
-
-            tv2.setTextColor(Color.parseColor("#000000"), "#000000");
-
-            tv2.setTypeface(FontBinder.get("NanumGothic"), "NanumGothic");
-            tv2.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (NOW_EDITING == EDITING_TEXT) {
-                        if (!_dialog)
-                            showXDialog(tv2);
-                    } else if (cfv.getLocked()) {
-                        return false;
-                    }
-
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            cfv.setFlag(true, tv2);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            cfv.setFlag(false);
-                            break;
-                    }
-                    return true;
-                }
-            });
-            cfv.addCard(tv2, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
-    }
-
     private void showXDialog(final TextView tv) {
         LayoutInflater dialog = LayoutInflater.from(this);
         final View dialogLayout = dialog.inflate(R.layout.editor_modi_view, null);
@@ -552,11 +405,11 @@ public class EditorMainActivity extends EditorBaseActivity {
             }
         });
 
-        EditText editModi = (EditText) dialogLayout.findViewById(R.id.modi_edit);
+        EditText editModi = dialogLayout.findViewById(R.id.modi_edit);
         editModi.setText(tv.getText().toString());
         _dialog = true;
-        Button posbtn = (Button) dialogLayout.findViewById(R.id.modi_pos);
-        Button negbtn = (Button) dialogLayout.findViewById(R.id.modi_neg);
+        Button posbtn = dialogLayout.findViewById(R.id.modi_pos);
+        Button negbtn = dialogLayout.findViewById(R.id.modi_neg);
 
         posbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -823,6 +676,60 @@ public class EditorMainActivity extends EditorBaseActivity {
         return tv;
     }
 
+    public void _마무리작업() {  // TODO author 수정
+        String userToken = ""; // TODO Token 넣어주기
+        NetworkHelper.getNetworkInstance().newCardNews(userToken, title, cfv.getLimitPage(), type).enqueue(new Callback<CardNews>() {
+            @Override
+            public void onResponse(Call<CardNews> call, Response<CardNews> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<CardNews> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void _마무리작업2(int x) throws IOException, JSONException {
+        String path = getExternalCacheDir() + "/" + x + "/data.json";
+        Log.e(TAG, "path: " + path);
+        File json_file = new File(path);
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(json_file)));
+        String json = br.readLine();
+        br.close();
+
+        JSONObject data = new JSONObject(json);
+        Log.e(TAG, "restorePage: readJSON:" + json);
+        int count = data.getJSONArray("res_count").getInt(0);
+
+        RequestBody jsonString = RequestBody.create(MediaType.parse("text/plain"), json);
+        RequestBody userToken = RequestBody.create(MediaType.parse("text/plain"), "TOKEN");     // TODO 토큰값 불러오기
+        RequestBody key = RequestBody.create(MediaType.parse("text/plain"), "card-key");     // TODO 1에서 얻어온 카드 키 값
+
+
+        HashMap<String, RequestBody> map = new HashMap<>(count);
+        RequestBody file = null;
+        File f = null;
+
+        for (int i = 0; i < count; i++) {
+            file = RequestBody.create(MediaType.parse("multipart/form-data"), f);
+            map.put("file\"; filename=\"f" + i, file);
+        }
+
+        NetworkHelper.getNetworkInstance().uploadCardImage(userToken, map, jsonString, key).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 
 }
 

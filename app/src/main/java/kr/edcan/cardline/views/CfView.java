@@ -431,7 +431,7 @@ public class CfView extends FrameLayout {
             }
             data.put("res_txt", resTxt);
 
-            File f = new File(cv.getExternalCacheDir() + "/" + page);
+            File f = new File(cv.getExternalCacheDir() + "/" + page + ".png");
             if (!f.exists())
                 f.mkdir();
             String path = cv.getExternalCacheDir() + "/" + page + "/data.json";
@@ -516,7 +516,7 @@ public class CfView extends FrameLayout {
         if (!dir.exists())
             dir.mkdir();
 
-        File f = new File(cv.getExternalCacheDir() + "/" + i + "/" + s);
+        File f = new File(cv.getExternalCacheDir() + "/" + i + "/" + s + ".png");
         OutputStream out = null;
         try {
             f.createNewFile();
@@ -535,7 +535,7 @@ public class CfView extends FrameLayout {
     }
 
     public Bitmap fTob(String s) {
-        return BitmapFactory.decodeFile(cv.getExternalCacheDir() + s);
+        return BitmapFactory.decodeFile(cv.getExternalCacheDir() + s + ".png");
     }
 
     public PageManager getPag() {
@@ -582,11 +582,10 @@ public class CfView extends FrameLayout {
             ArrayList<ResManager> img_pack = new ArrayList<>();
             if (!data.isNull("res_img")) {
                 JSONArray imgData = data.getJSONArray("res_img");
+
                 for (int i = 0; i < imgData.length(); i++) {
-                    JSONArray img = imgData.getJSONArray(i);
-                    ResManager res = new ResManager(new File(img.getString(0)), (float) img.getDouble(1), (float) img.getDouble(2), img.getInt(3), img.getInt(4));
-                    Log.e(TAG, "restorePage: X" + img.getDouble(1));
-                    Log.e(TAG, "restorePage: Y" + img.getDouble(2));
+                    JSONObject img = imgData.getJSONObject(i);
+                    ResManager res = new ResManager(new File(img.getString("main_img")), (float) img.getDouble("x"), (float) img.getDouble("y"), img.getInt("width"), img.getInt("height"));
                     img_pack.add(res);
                 }
             }
@@ -597,8 +596,8 @@ public class CfView extends FrameLayout {
             if (!data.isNull("res_txt")) {
                 JSONArray txtData = data.getJSONArray("res_txt");
                 for (int i = 0; i < txtData.length(); i++) {
-                    JSONArray txt = txtData.getJSONArray(i);
-                    ResManager res = new ResManager(txt.getString(0), (float) txt.getDouble(1), (float) txt.getDouble(2), txt.getInt(3), txt.getString(4), txt.getString(5));
+                    JSONObject txt = txtData.getJSONObject(i);
+                    ResManager res = new ResManager(txt.getString("text"), (float) txt.getDouble("x"), (float) txt.getDouble("y"), txt.getInt("size"), txt.getString("font"), txt.getString("color"));
                     txt_pack.add(res);
                 }
             }
