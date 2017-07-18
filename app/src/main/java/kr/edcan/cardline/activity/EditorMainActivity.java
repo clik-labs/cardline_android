@@ -676,7 +676,7 @@ public class EditorMainActivity extends EditorBaseActivity {
         return tv;
     }
 
-    public void _마무리작업() {  // TODO author 수정
+    public void initBase() {  // TODO author 수정
         String userToken = ""; // TODO Token 넣어주기
         NetworkHelper.getNetworkInstance().newCardNews(userToken, title, cfv.getLimitPage(), type).enqueue(new Callback<CardNews>() {
             @Override
