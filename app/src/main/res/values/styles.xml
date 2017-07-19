@@ -65,4 +65,8 @@
 
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem" />
 
+    <style name="Comment_Style" parent="Theme.AppCompat">
+        <item name="colorPrimary">#212121</item>
+    </style>
+
 </resources>

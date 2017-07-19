@@ -10,58 +10,146 @@
         tools:context="kr.edcan.cardline.activity.CardlineViewActivity">
 
         <kr.edcan.cardline.views.ShowCardView
-            android:layout_width="match_parent"
             android:id="@+id/showView"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#0f0222">
 
         </kr.edcan.cardline.views.ShowCardView>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/show_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2017.04.08"
-                android:textColor="#aaaaaa"
-                android:textSize="10dp" />
-
-            <TextView
-                android:id="@+id/show_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="미흡한 미세먼지 대처가 낳은 심각한 결과"
-                android:textColor="#000"
-                android:textSize="22dp" />
+            android:layout_weight="1">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <kr.edcan.cardline.views.RoundImageView
-                    android:id="@+id/show_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/show_author"
+                    android:id="@+id/show_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="22dp"
-                    android:text="아 자고싶다"
-                    android:textSize="14dp" />
+                    android:text="2017.04.08"
+                    android:textColor="#bdbdbd"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/show_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="미흡한 미세먼지 대처가 낳은 심각한 결과"
+                    android:textColor="#000"
+                    android:textSize="22dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <kr.edcan.cardline.views.RoundImageView
+                        android:id="@+id/show_profile"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp" />
+
+                    <TextView
+                        android:id="@+id/show_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="아 자고싶다"
+                        android:textColor="#bdbdbd"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="#212121"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="24dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_post_commu_favrank" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="1"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="22dp"
+                            android:src="@drawable/ic_post_commu_reply" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="2"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right|center_vertical">
+
+
+                        <LinearLayout
+                            android:id="@+id/cardline_comment_show"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingEnd="12dp"
+                            android:paddingLeft="12dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_post_commu_slideup" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>
