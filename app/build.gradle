@@ -45,6 +45,8 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'gun0912.ted:tedbottompicker:1.0.12'
+    compile 'gun0912.ted:tedpermission:1.0.3'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

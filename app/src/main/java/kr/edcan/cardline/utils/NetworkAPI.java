@@ -81,8 +81,8 @@ public interface NetworkAPI {
 
     @POST("/self/info/update/photo")
     @Multipart
-    Call<RequestBody> updateSelfInfoPhoto(
-            @Part("photo\"; filename=\"image.jpg\"") RequestBody file,
+    Call<User> updateSelfInfoPhoto(
+            @Part("file\"; filename=\"image.jpg\"") RequestBody file,
             @Part("token") RequestBody token);
 
     @POST("/self/info/update/like")

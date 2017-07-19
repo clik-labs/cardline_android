@@ -58,7 +58,13 @@ public class CredentialsManager {
         editor.putBoolean(HAS_ACTIVE_USER, true);
         editor.apply();
     }
+    public void updateUserInfo(User user) {
+        saveUserInfo(user, getLoginType());
+    }
 
+    public int getLoginType(){
+        return preferences.getInt(LOGIN_TYPE, -1);
+    }
     public Pair<Boolean, User> getActiveUser() {
         if (preferences.getBoolean(HAS_ACTIVE_USER, false)) {
             int userType = preferences.getInt(LOGIN_TYPE, -1);
