@@ -6,16 +6,9 @@
         android:id="@+id/activity_cardline_comment_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="10"
         android:orientation="vertical"
+        android:weightSum="10"
         tools:context="kr.edcan.cardline.activity.CardlineCommentViewActivity">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-        </LinearLayout>
 
 
     </LinearLayout>

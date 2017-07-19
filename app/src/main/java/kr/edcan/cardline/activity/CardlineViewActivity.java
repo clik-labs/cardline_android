@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import kr.edcan.cardline.R;
 import kr.edcan.cardline.databinding.ActivityCardlineViewBinding;
-import kr.edcan.cardline.models.CardNews;
 import kr.edcan.cardline.utils.ImageSingleTon;
 
 
@@ -26,7 +25,7 @@ public class CardlineViewActivity extends EditorBaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_cardline_view);
         context = this;
 
-        Intent i = getIntent(); // TODO 진행필
+        Intent intent = getIntent(); // TODO 진행필
         TextView titleView = binding.showTitle;
         String[] s = titleView.getText().toString().split("\\s+");
         String front = "";

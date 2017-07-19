@@ -3,6 +3,7 @@ package kr.edcan.cardline.views;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,21 +73,28 @@ public class ShowCardView extends RelativeLayout {
     }
 
     private void btnCheck(boolean b) {
+        Log.e(TAG, "btnCheck: " + current_page);
         if (b) {
             current_page = current_page + 1;
+            if (current_page > limit_page) {
+                current_page = 1;
+            }
         } else {
             current_page = current_page - 1;
+            if (current_page < 1) {
+                current_page = limit_page;
+            }
         }
-        if (current_page == limit_page) {
-            vNext.setVisibility(GONE);
-        } else {
-            vNext.setVisibility(VISIBLE);
-        }
-        if (current_page == 1) {
-            vPrev.setVisibility(GONE);
-        } else {
-            vPrev.setVisibility(VISIBLE);
-        }
+//        if (current_page == limit_page) {
+//            vNext.setVisibility(GONE);
+//        } else {
+//            vNext.setVisibility(VISIBLE);
+//        }
+//        if (current_page == 1) {
+//            vPrev.setVisibility(GONE);
+//        } else {
+//            vPrev.setVisibility(VISIBLE);
+//        }
     }
 
     public void setLimitPage(int x) {
